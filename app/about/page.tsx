@@ -20,13 +20,13 @@ const teamMembers = [
     name: "Vyom Modi",
     role: "Founding Engineer",
     title: "",
-    image: "/team/vyom.jpg",
+    image: "/team/vyom.png",
   },
   {
     name: "Kevin Becerra",
     role: "Founding Engineer",
     title: "",
-    image: "/team/kevin.jpg",
+    image: "/team/kevin.png",
   },
   {
     name: "Mahesh Shekokar",
