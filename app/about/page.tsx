@@ -17,16 +17,16 @@ const teamMembers = [
     image: "/team/vijaiganesh.jpg",
   },
   {
-    name: "Shashvat Singham",
+    name: "Vyom Modi",
     role: "Founding Engineer",
     title: "",
-    image: "/team/shasvat.jpg",
+    image: "/team/vyom.jpg",
   },
   {
-    name: "Chee",
-    role: "Voice AI Engineer",
+    name: "Kevin Becerra",
+    role: "Founding Engineer",
     title: "",
-    image: "/team/chee.jpg",
+    image: "/team/kevin.jpg",
   },
   {
     name: "Mahesh Shekokar",
