@@ -4,6 +4,7 @@ import { Shield, Lock, Globe } from "lucide-react"
 
 const footerLinks = {
   solutions: [
+    { label: "OmniAI", href: "/omniai" },
     { label: "Heart Failure", href: "/heart-failure" },
     { label: "Dementia Care", href: "/dementia" },
     { label: "Diabetes", href: "/diabetes" },

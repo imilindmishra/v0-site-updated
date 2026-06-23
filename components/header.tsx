@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 
 const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/omniai", label: "OmniAI" },
   { href: "/heart-failure", label: "Heart Failure" },
   { href: "/dementia", label: "Dementia" },
   { href: "/diabetes", label: "Diabetes" },

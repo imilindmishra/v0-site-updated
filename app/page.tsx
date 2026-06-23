@@ -89,7 +89,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-start justify-start overflow-hidden pt-16">
         <Image
-          src="/images/voice-ai-hero.jpg"
+          src="/images/voice-ai-hero.png"
           alt="iClinic Voice AI - Stethoscope with audio waveform"
           fill
           className="object-cover"
