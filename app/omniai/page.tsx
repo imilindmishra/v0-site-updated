@@ -165,15 +165,19 @@ export default function OmniAIPage() {
           {/* Simple Chart Visualization */}
           <div className="mx-auto mt-12 max-w-3xl">
             <div className="rounded-2xl border border-border bg-background p-8">
-              <div className="flex items-end justify-between gap-4 h-64">
-                <div className="flex flex-col items-center gap-2 flex-1">
-                  <div className="w-full bg-red-500/50 rounded-t-lg" style={{ height: "62%" }} />
-                  <span className="text-sm text-muted-foreground">Without OmniAI</span>
+              <div className="flex items-end justify-between gap-8 h-64">
+                <div className="flex h-full flex-1 flex-col justify-end gap-2">
+                  <span className="text-center text-2xl font-bold text-foreground">62%</span>
+                  <div className="w-full rounded-t-lg bg-muted-foreground/40" style={{ height: "62%" }} />
                 </div>
-                <div className="flex flex-col items-center gap-2 flex-1">
-                  <div className="w-full bg-primary rounded-t-lg" style={{ height: "100%" }} />
-                  <span className="text-sm text-muted-foreground">With OmniAI (Projected)</span>
+                <div className="flex h-full flex-1 flex-col justify-end gap-2">
+                  <span className="text-center text-2xl font-bold text-primary">100%</span>
+                  <div className="w-full rounded-t-lg bg-primary" style={{ height: "100%" }} />
                 </div>
+              </div>
+              <div className="mt-3 flex items-center justify-between gap-8">
+                <span className="flex-1 text-center text-sm text-muted-foreground">Without OmniAI</span>
+                <span className="flex-1 text-center text-sm text-muted-foreground">With OmniAI (Projected)</span>
               </div>
               <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
                 <TrendingUp className="h-4 w-4 text-primary" />
