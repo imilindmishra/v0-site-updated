@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { PhoneCall, CalendarClock, Voicemail, PhoneForwarded, TrendingUp, Headphones } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { CallDashboardMockup, CallSummaryMockup, SchedulingMockup } from "@/components/mockups/product-mockups"
+import { FeatureList } from "@/components/feature-list"
 
 export const metadata: Metadata = {
   title: "OmniAI - Clinic Phone Call Management",
@@ -58,6 +60,18 @@ export default function OmniAIPage() {
               call directly in your EHR, so your front desk can focus on the
               patients in the room.
             </p>
+            <p className="mx-auto mt-5 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+              </span>
+              Currently in early production — deployed and tested in a live clinical setting
+            </p>
+          </div>
+
+          {/* Product mockup */}
+          <div className="mx-auto mt-14 max-w-5xl">
+            <CallDashboardMockup />
           </div>
         </div>
       </section>
@@ -187,6 +201,51 @@ export default function OmniAIPage() {
           </div>
         </div>
       </section>
+
+      {/* Product Screens */}
+      <section className="bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Inside OmniAI</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Every Call, Documented and Actioned
+            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+              OmniAI transcribes and summarizes each call, then books the appointment and writes it back to your EHR.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            <div>
+              <CallSummaryMockup />
+              <p className="mt-4 text-center text-sm text-muted-foreground">
+                Call summary &amp; transcript with the action it took
+              </p>
+            </div>
+            <div>
+              <SchedulingMockup />
+              <p className="mt-4 text-center text-sm text-muted-foreground">
+                Appointment booked from the call and synced to the EHR
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <FeatureList
+        variant="card"
+        title="What You Can Do with OmniAI"
+        description="Plain and simple, here is what OmniAI does for your front desk."
+        features={[
+          "Answer every inbound call 24/7, with no voicemail or hold music",
+          "Let patients book, reschedule, or cancel appointments by voice",
+          "Take prescription refill requests and route them for approval",
+          "Triage symptoms and escalate urgent calls to the right staff",
+          "Automatically write call notes and outcomes back to your EHR",
+          "Send appointment confirmations and reminders to cut no-shows",
+          "Review a live dashboard of every call and its resolution",
+          "Answer common questions about hours, location, and insurance",
+        ]}
+      />
 
       {/* CTA */}
       <section className="bg-background py-16 sm:py-20">

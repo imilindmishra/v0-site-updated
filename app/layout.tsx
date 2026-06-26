@@ -14,11 +14,11 @@ export const metadata: Metadata = {
     template: "%s | iClinic AI",
   },
   description:
-    "HIPAA-compliant voice AI that integrates with your EHR to handle scheduling, refills, and triage. Reduce administrative overhead by 40% and increase patient adherence by 22%.",
+    "Voice AI with a HIPAA-compliant architecture, built to integrate with major EHR systems via FHIR to handle scheduling, refills, and triage. Currently in early production in a live clinical setting.",
   keywords: [
     "healthcare AI",
     "EHR integration",
-    "HIPAA compliant",
+    "HIPAA-compliant architecture",
     "voice AI",
     "patient monitoring",
     "heart failure",

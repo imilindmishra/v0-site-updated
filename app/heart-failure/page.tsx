@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { HeartPulse, Scale, Pill, Wind, TrendingDown, AlertTriangle } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { PatientMonitoringMockup } from "@/components/mockups/product-mockups"
+import { FeatureList } from "@/components/feature-list"
 
 export const metadata: Metadata = {
   title: "Heart Failure Management",
@@ -57,6 +59,11 @@ export default function HeartFailurePage() {
               detects warning signs early, and reduces costly readmissions
               through consistent engagement.
             </p>
+          </div>
+
+          {/* Product mockup */}
+          <div className="mx-auto mt-14 max-w-5xl">
+            <PatientMonitoringMockup />
           </div>
         </div>
       </section>
@@ -182,6 +189,21 @@ export default function HeartFailurePage() {
           </div>
         </div>
       </section>
+
+      <FeatureList
+        title="What You Can Do with Heart Failure Monitoring"
+        description="A clear picture of what the program does for your patients and care team."
+        features={[
+          "Run automated daily voice check-ins for weight and symptoms",
+          "Capture daily weights and flag concerning trends automatically",
+          "Send gentle medication and diuretic adherence reminders",
+          "Triage shortness of breath and other symptoms with clinical protocols",
+          "Alert the care team early when weight gain crosses safe thresholds",
+          "Surface at-risk patients on a monitoring dashboard with vitals",
+          "Log every check-in and reading back to the patient chart",
+          "Reduce avoidable 30-day readmissions through early intervention",
+        ]}
+      />
 
       {/* CTA */}
       <section className="bg-background py-16 sm:py-20">

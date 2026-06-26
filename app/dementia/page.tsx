@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { Brain, Heart, Pill, Puzzle, Users, Bell } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { PatientMonitoringMockup, CallSummaryMockup } from "@/components/mockups/product-mockups"
+import { FeatureList } from "@/components/feature-list"
 
 export const metadata: Metadata = {
   title: "Dementia & Caregiver Support",
@@ -66,6 +68,11 @@ export default function DementiaPage() {
               patients. iClinic AI handles repetitive questions with grace and
               provides reliable support for both patients and caregivers.
             </p>
+          </div>
+
+          {/* Product mockup */}
+          <div className="mx-auto mt-14 max-w-5xl">
+            <PatientMonitoringMockup />
           </div>
         </div>
       </section>
@@ -164,6 +171,40 @@ export default function DementiaPage() {
           </div>
         </div>
       </section>
+
+      {/* Product Screen */}
+      <section className="bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Inside the Platform</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+              Calm Conversations, Clearly Documented
+            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+              Each check-in call is transcribed and summarized so the care team and family stay informed.
+            </p>
+          </div>
+          <div className="mx-auto mt-12 max-w-3xl">
+            <CallSummaryMockup />
+          </div>
+        </div>
+      </section>
+
+      <FeatureList
+        variant="card"
+        title="What You Can Do with Dementia Support"
+        description="Practical, everyday support for patients, caregivers, and clinicians."
+        features={[
+          "Provide warm, repetitive companionship calls without frustration",
+          "Deliver patient medication reminders and confirm intake",
+          "Run light cognitive exercises adapted to the patient",
+          "Give caregivers scheduled respite with check-in calls",
+          "Alert family members when concerning patterns appear",
+          "Notify the care team when appointments are missed",
+          "Log every interaction to the EHR for the primary care physician",
+          "Adapt tone and pacing to the patient's cognitive state",
+        ]}
+      />
 
       {/* CTA */}
       <section className="bg-background py-16 sm:py-20">
