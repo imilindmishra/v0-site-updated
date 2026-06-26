@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
-import { Mail, MapPin, Phone, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Mail, MapPin, Phone } from "lucide-react"
+import { ContactForm } from "@/components/contact-form"
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -75,29 +75,8 @@ export default function ContactPage() {
             </ul>
           </div>
 
-          {/* Email CTA card */}
-          <div className="rounded-2xl border border-border bg-card p-8">
-            <h2 className="text-2xl font-bold tracking-tight text-foreground">Request a Demo</h2>
-            <p className="mt-3 text-muted-foreground leading-relaxed">
-              Tell us a little about your clinic, the EHR you use, and what you&apos;d like to automate. We&apos;ll set
-              up a walkthrough of iClinic AI tailored to your workflow.
-            </p>
-            <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
-              <li>• Your clinic or organization name</li>
-              <li>• Which EHR you currently use</li>
-              <li>• The workflows you want to automate</li>
-            </ul>
-            <Button
-              asChild
-              size="lg"
-              className="mt-8 w-full bg-primary text-primary-foreground hover:bg-primary/90"
-            >
-              <a href="mailto:Info@imedclinic.ai?subject=iClinic%20AI%20Demo%20Request">
-                Email Us to Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
-            </Button>
-          </div>
+          {/* Contact form */}
+          <ContactForm />
         </div>
       </section>
     </div>
