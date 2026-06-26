@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import { HeartPulse, Scale, Pill, Wind, TrendingDown, AlertTriangle } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { FeatureList } from "@/components/feature-list"
 
 export const metadata: Metadata = {
   title: "Heart Failure Management",
@@ -57,6 +59,26 @@ export default function HeartFailurePage() {
               detects warning signs early, and reduces costly readmissions
               through consistent engagement.
             </p>
+          </div>
+
+          {/* Product screenshot */}
+          <div className="mx-auto mt-14 max-w-5xl">
+            <div className="overflow-hidden rounded-2xl border border-border shadow-2xl">
+              <div className="flex items-center gap-2 border-b border-border bg-card px-4 py-3">
+                <span className="h-3 w-3 rounded-full bg-red-500/70" />
+                <span className="h-3 w-3 rounded-full bg-yellow-500/70" />
+                <span className="h-3 w-3 rounded-full bg-green-500/70" />
+                <span className="ml-3 text-xs text-muted-foreground">HF Readmission Platform</span>
+              </div>
+              <Image
+                src="/images/hf-dashboard.png"
+                alt="iClinic AI Heart Failure Readmission Platform dashboard showing 15 active patients, risk scores, weight trends, and active alerts"
+                width={1870}
+                height={760}
+                className="w-full"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -164,15 +186,19 @@ export default function HeartFailurePage() {
           {/* Simple Chart Visualization */}
           <div className="mx-auto mt-12 max-w-3xl">
             <div className="rounded-2xl border border-border bg-background p-8">
-              <div className="flex items-end justify-between gap-4 h-64">
-                <div className="flex flex-col items-center gap-2 flex-1">
-                  <div className="w-full bg-red-500/50 rounded-t-lg" style={{ height: "100%" }} />
-                  <span className="text-sm text-muted-foreground">Without iClinic AI</span>
+              <div className="flex items-end justify-between gap-8 h-64">
+                <div className="flex h-full flex-1 flex-col justify-end gap-2">
+                  <span className="text-center text-2xl font-bold text-red-400">100%</span>
+                  <div className="w-full rounded-t-lg bg-red-500/50" style={{ height: "100%" }} />
                 </div>
-                <div className="flex flex-col items-center gap-2 flex-1">
-                  <div className="w-full bg-primary rounded-t-lg" style={{ height: "55%" }} />
-                  <span className="text-sm text-muted-foreground">With iClinic AI (Projected)</span>
+                <div className="flex h-full flex-1 flex-col justify-end gap-2">
+                  <span className="text-center text-2xl font-bold text-primary">55%</span>
+                  <div className="w-full rounded-t-lg bg-primary" style={{ height: "55%" }} />
                 </div>
+              </div>
+              <div className="mt-3 flex items-center justify-between gap-8">
+                <span className="flex-1 text-center text-sm text-muted-foreground">Without iClinic AI</span>
+                <span className="flex-1 text-center text-sm text-muted-foreground">With iClinic AI (Projected)</span>
               </div>
               <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
                 <TrendingDown className="h-4 w-4 text-primary" />
@@ -182,6 +208,71 @@ export default function HeartFailurePage() {
           </div>
         </div>
       </section>
+
+      {/* Inside the Platform */}
+      <section className="bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                Inside the Platform
+              </h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                A Complete Picture of Every Patient
+              </p>
+              <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+                Each patient record brings together readmission risk, daily weight monitoring, active clinical alerts,
+                and a full medical history in one place. Care teams can initiate a voice AI call or schedule an
+                appointment without leaving the chart, and every reading syncs back to the EHR.
+              </p>
+              <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                  Live readmission risk scoring with rising/falling trend
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                  Weight monitoring against discharge and critical thresholds
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                  Actionable alerts for BNP, potassium, eGFR, and weight gain
+                </li>
+              </ul>
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-border shadow-2xl">
+              <div className="flex items-center gap-2 border-b border-border bg-card px-4 py-3">
+                <span className="h-3 w-3 rounded-full bg-red-500/70" />
+                <span className="h-3 w-3 rounded-full bg-yellow-500/70" />
+                <span className="h-3 w-3 rounded-full bg-green-500/70" />
+                <span className="ml-3 text-xs text-muted-foreground">Patient Detail</span>
+              </div>
+              <Image
+                src="/images/hf-patient-detail.png"
+                alt="iClinic AI patient detail view for a critical heart failure patient, showing active alerts, readmission risk score, weight monitoring, and patient information"
+                width={1870}
+                height={880}
+                className="w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <FeatureList
+        title="What You Can Do with Heart Failure Monitoring"
+        description="A clear picture of what the program does for your patients and care team."
+        features={[
+          "Run automated daily voice check-ins for weight and symptoms",
+          "Capture daily weights and flag concerning trends automatically",
+          "Send gentle medication and diuretic adherence reminders",
+          "Triage shortness of breath and other symptoms with clinical protocols",
+          "Alert the care team early when weight gain crosses safe thresholds",
+          "Surface at-risk patients on a monitoring dashboard with vitals",
+          "Log every check-in and reading back to the patient chart",
+          "Reduce avoidable 30-day readmissions through early intervention",
+        ]}
+      />
 
       {/* CTA */}
       <section className="bg-background py-16 sm:py-20">

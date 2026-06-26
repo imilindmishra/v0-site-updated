@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import Link from "next/link"
 import { Users, Lightbulb, FileText, Mail, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -250,21 +251,17 @@ export default function AboutPage() {
       <section className="border-t border-border bg-background py-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-            <a href="#" className="hover:text-foreground transition-colors">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">
               Privacy Policy
-            </a>
+            </Link>
             <span className="text-border">|</span>
-            <a href="#" className="hover:text-foreground transition-colors">
+            <Link href="/terms" className="hover:text-foreground transition-colors">
               Terms of Service
-            </a>
+            </Link>
             <span className="text-border">|</span>
-            <a href="#" className="hover:text-foreground transition-colors">
-              HIPAA Notice
-            </a>
-            <span className="text-border">|</span>
-            <a href="#" className="hover:text-foreground transition-colors">
-              Security Practices
-            </a>
+            <Link href="/contact" className="hover:text-foreground transition-colors">
+              Contact
+            </Link>
           </div>
         </div>
       </section>

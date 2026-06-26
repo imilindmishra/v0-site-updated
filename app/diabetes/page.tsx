@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { Activity, Droplets, Apple, Footprints, TrendingDown, Smartphone } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { PatientMonitoringMockup } from "@/components/mockups/product-mockups"
+import { FeatureList } from "@/components/feature-list"
 
 export const metadata: Metadata = {
   title: "Diabetes Care Coordination",
@@ -58,6 +60,11 @@ export default function DiabetesPage() {
               providers. Consistent, non-judgmental daily engagement that
               improves outcomes.
             </p>
+          </div>
+
+          {/* Product mockup */}
+          <div className="mx-auto mt-14 max-w-5xl">
+            <PatientMonitoringMockup />
           </div>
         </div>
       </section>
@@ -145,9 +152,9 @@ export default function DiabetesPage() {
               </div>
 
               <p className="text-muted-foreground mb-6">
-                iClinic AI integrates with Dexcom, Libre, and other CGM devices
-                through your EHR connection. Real-time glucose data informs
-                conversation and triggers alerts.
+                iClinic AI is built to integrate with Dexcom, Libre, and other
+                CGM devices through your EHR connection, so glucose data can
+                inform conversation and trigger alerts.
               </p>
 
               <div className="grid grid-cols-2 gap-3">
@@ -231,6 +238,21 @@ export default function DiabetesPage() {
           </div>
         </div>
       </section>
+
+      <FeatureList
+        title="What You Can Do with Diabetes Management"
+        description="A straightforward look at how the program supports your patients."
+        features={[
+          "Run daily or scheduled glucose and symptom check-in calls",
+          "Send personalized medication and insulin reminders",
+          "Offer simple, non-judgmental diet and activity coaching",
+          "Connect with CGM data through the EHR to inform conversations",
+          "Flag dangerous highs and lows and alert the care team",
+          "Track A1C goals and trends over time on a dashboard",
+          "Log every reading and conversation back to the patient chart",
+          "Keep patients engaged between visits to improve adherence",
+        ]}
+      />
 
       {/* CTA */}
       <section className="bg-background py-16 sm:py-20">

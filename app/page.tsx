@@ -2,6 +2,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, Mic, FileText, Shield, Calendar, Stethoscope, Clock } from "lucide-react"
+import {
+  CallDashboardMockup,
+  CallSummaryMockup,
+  SchedulingMockup,
+  PatientMonitoringMockup,
+} from "@/components/mockups/product-mockups"
+import { YouTubeEmbed } from "@/components/youtube-embed"
 
 const stats = [
   { label: "Calls Missed Daily", value: "47" },
@@ -10,59 +17,59 @@ const stats = [
 ]
 
 const solutionStats = [
-  { label: "Admin Overhead Reduced", value: "40%" },
-  { label: "Patient Adherence Up", value: "22%" },
-  { label: "ROI Timeline", value: "90 Days" },
+  { label: "Target Admin Overhead Reduction", value: "40%" },
+  { label: "Target Patient Adherence Gain", value: "22%" },
+  { label: "Target ROI Timeline", value: "90 Days" },
 ]
 
 const evidenceStats = [
-  { label: "Calls Handled", value: "1M+" },
-  { label: "EHR Integrations", value: "15+" },
-  { label: "Uptime", value: "99.9%" },
+  { label: "Live Clinical Deployment", value: "1" },
+  { label: "EHR Connectivity", value: "FHIR" },
+  { label: "Calls Answered, Day or Night", value: "24/7" },
 ]
 
 const specs = [
   {
     icon: Mic,
     title: "Voice AI Engine",
-    value: "98.5%",
-    unit: "Accuracy",
+    value: "Real-Time",
+    unit: "Recognition",
     description: "Real-time voice recognition tuned for medical terminology and clinical workflows",
   },
   {
     icon: FileText,
     title: "EHR Integration",
-    value: "15+",
-    unit: "Platforms",
-    description: "Seamless integration with Epic, eClinicalWorks, athenahealth, and more",
+    value: "FHIR",
+    unit: "Standards",
+    description: "Built to integrate with major EHR systems via FHIR and HL7 interoperability standards",
   },
   {
     icon: Shield,
-    title: "HIPAA Compliance",
-    value: "100%",
-    unit: "Encrypted",
-    description: "End-to-end encryption, SOC 2 certified, BAA included from day one",
+    title: "Security & Privacy",
+    value: "HIPAA",
+    unit: "Architecture",
+    description: "HIPAA-compliant architecture with end-to-end encryption. SOC 2 compliance in progress.",
   },
   {
     icon: Calendar,
     title: "Smart Scheduling",
-    value: "40%",
-    unit: "Fewer No-Shows",
-    description: "AI-powered appointment management with automated reminders and follow-ups",
+    value: "Automated",
+    unit: "Reminders",
+    description: "AI-powered appointment management designed to reduce no-shows with automated reminders and follow-ups",
   },
   {
     icon: Stethoscope,
     title: "Intelligent Triage",
-    value: "<30s",
-    unit: "Response Time",
-    description: "Clinically validated protocols for accurate patient routing and prioritization",
+    value: "Protocol",
+    unit: "Driven",
+    description: "Clinically informed protocols for patient routing and prioritization, escalating urgent cases to staff",
   },
   {
     icon: Clock,
-    title: "24/7 Availability",
-    value: "99.9%",
-    unit: "Uptime",
-    description: "Always-on voice agent that never calls in sick, never takes a break",
+    title: "Always Available",
+    value: "24/7",
+    unit: "Answering",
+    description: "An always-on voice agent that never calls in sick and never takes a break",
   },
 ]
 
@@ -114,6 +121,16 @@ export default function HomePage() {
           <p className="mt-3 text-sm md:text-base max-w-sm leading-relaxed" style={{ color: "#A1A1A6" }}>
             The EHR-integrated voice agent for modern clinics. Where empathy meets algorithm.
           </p>
+          <div
+            className="mt-5 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium"
+            style={{ backgroundColor: "rgba(45,212,191,0.12)", color: "#2DD4BF" }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-current" />
+            </span>
+            Currently in early production — deployed and tested in a live clinical setting
+          </div>
           <div className="mt-6 flex flex-col sm:flex-row items-start gap-3">
             <a
               href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2FER6k7M9SJL3FDXJ79G2BNARX1RVNIqYVIxOBaEKEpurkpxXNKHfuPqEuSQqv0lkUObJcLwVz"
@@ -182,6 +199,71 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Product Showcase Section */}
+      <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto">
+            <p className="text-sm tracking-[0.3em] uppercase mb-6" style={{ color: "#2DD4BF" }}>
+              See the Product
+            </p>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{ color: "#F5F5F7" }}>
+              This Is What Your Team Sees
+            </h2>
+            <p className="mt-6 text-lg md:text-xl leading-relaxed" style={{ color: "#86868B" }}>
+              A live look at the iClinic AI workspace — every call answered, summarized, and synced to your EHR, with
+              appointments booked and at-risk patients surfaced automatically.
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-8 lg:grid-cols-2">
+            <div>
+              <CallDashboardMockup />
+              <p className="mt-4 text-center text-sm" style={{ color: "#86868B" }}>
+                Call dashboard — live view of every inbound call and its outcome
+              </p>
+            </div>
+            <div>
+              <CallSummaryMockup />
+              <p className="mt-4 text-center text-sm" style={{ color: "#86868B" }}>
+                Call summary &amp; transcript — auto-documented and logged to the chart
+              </p>
+            </div>
+            <div>
+              <SchedulingMockup />
+              <p className="mt-4 text-center text-sm" style={{ color: "#86868B" }}>
+                Scheduling — appointments booked from the call and synced to the EHR
+              </p>
+            </div>
+            <div>
+              <PatientMonitoringMockup />
+              <p className="mt-4 text-center text-sm" style={{ color: "#86868B" }}>
+                Patient monitoring — daily vitals with automatic care-team alerts
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Demo Video Section */}
+      <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center">
+            <p className="text-sm tracking-[0.3em] uppercase mb-6" style={{ color: "#2DD4BF" }}>
+              Watch It Work
+            </p>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-balance" style={{ color: "#F5F5F7" }}>
+              See iClinic AI in Action
+            </h2>
+            <p className="mt-6 text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "#86868B" }}>
+              Watch our voice agent handle a real prescription refill and scheduling request from start to finish.
+            </p>
+          </div>
+          <div className="mt-12">
+            <YouTubeEmbed videoId="6Wu202Wpj7k" title="iClinic AI demo" />
+          </div>
+        </div>
+      </section>
+
       {/* Evidence Section */}
       <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
         <div className="max-w-4xl mx-auto text-center">
@@ -189,11 +271,11 @@ export default function HomePage() {
             The Evidence
           </p>
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{ color: "#F5F5F7" }}>
-            Clinically Validated. Enterprise Ready.
+            Built for Real Clinical Use
           </h2>
           <p className="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: "#86868B" }}>
-            Trusted by healthcare providers across the country. Our voice AI is HIPAA compliant, SOC 2 certified, and
-            integrates with 15+ EHR platforms including Epic, eClinicalWorks, and athenahealth.
+            iClinic Voice AI is deployed and tested in a live clinical setting today. It runs on a HIPAA-compliant
+            architecture (SOC 2 compliance in progress) and is built to integrate with major EHR systems via FHIR.
           </p>
           <div className="mt-12">
             <StatBlock items={evidenceStats} />
@@ -260,7 +342,8 @@ export default function HomePage() {
             Experience the Future of Clinical Communication
           </h2>
           <p className="mt-6 text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "#86868B" }}>
-            Join leading clinics using AI to reduce administrative overhead by 40% and increase patient adherence by 22%.
+            See how voice AI can help your clinic reduce administrative overhead and improve patient adherence. Currently
+            in early production in a live clinical setting.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a

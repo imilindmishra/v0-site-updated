@@ -11,13 +11,12 @@ const footerLinks = {
   ],
   company: [
     { label: "About Us", href: "/about" },
-    { label: "Contact", href: "/about" },
-    { label: "Careers", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ],
   legal: [
-    { label: "Privacy Policy", href: "/about" },
-    { label: "Terms of Service", href: "/about" },
-    { label: "BAA Request", href: "/about" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
+    { label: "Contact", href: "/contact" },
   ],
 }
 
@@ -43,7 +42,7 @@ export function Footer() {
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-2 rounded-full bg-secondary px-3 py-1.5 text-xs font-medium text-foreground">
                 <Shield className="h-4 w-4 text-primary" />
-                HIPAA Compliant
+                HIPAA-Compliant Architecture
               </div>
             </div>
           </div>
