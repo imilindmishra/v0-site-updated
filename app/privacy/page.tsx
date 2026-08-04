@@ -51,7 +51,7 @@ const sections = [
   {
     heading: "Contact",
     body: [
-      "Questions about this policy or our privacy practices can be sent to Info@imedclinic.ai.",
+      "Questions about this policy or our privacy practices can be sent to info@imedclinic.ai.",
     ],
   },
 ]
@@ -59,28 +59,37 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <div className="bg-background">
-      <section className="border-b border-border py-20 sm:py-24">
+      <section className="border-b border-border py-20 md:py-28">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary">Legal</p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">Privacy Policy</h1>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Legal</p>
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">Privacy Policy</h1>
           <p className="mt-4 text-sm text-muted-foreground">Last updated: June 2026</p>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl space-y-12 px-4 sm:px-6 lg:px-8">
-          {sections.map((section) => (
-            <div key={section.heading}>
-              <h2 className="text-2xl font-bold tracking-tight text-foreground">{section.heading}</h2>
-              <div className="mt-4 space-y-4">
-                {section.body.map((paragraph, i) => (
-                  <p key={i} className="text-muted-foreground leading-relaxed">
-                    {paragraph}
-                  </p>
-                ))}
+      <section className="py-20 md:py-28">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="space-y-12 rounded-2xl border border-border bg-card p-6 sm:p-10">
+            {sections.map((section) => (
+              <div key={section.heading}>
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground">{section.heading}</h2>
+                <div className="mt-4 space-y-4">
+                  {section.body.map((paragraph, i) => (
+                    <p key={i} className="text-muted-foreground leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+            <p className="text-muted-foreground leading-relaxed">
+              Email us at{" "}
+              <a href="mailto:info@imedclinic.ai" className="text-primary hover:underline">
+                info@imedclinic.ai
+              </a>
+              .
+            </p>
+          </div>
         </div>
       </section>
     </div>

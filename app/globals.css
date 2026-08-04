@@ -1,82 +1,49 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
-
-@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #000000;
-  --foreground: #F5F5F7;
-  --card: #111111;
-  --card-foreground: #F5F5F7;
-  --popover: #111111;
-  --popover-foreground: #F5F5F7;
-  --primary: #2DD4BF;
-  --primary-foreground: #000000;
-  --secondary: #1A1A1A;
-  --secondary-foreground: #F5F5F7;
-  --muted: #111111;
-  --muted-foreground: #86868B;
-  --accent: #2DD4BF;
-  --accent-foreground: #000000;
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: #222222;
-  --input: #222222;
-  --ring: #2DD4BF;
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: #111111;
-  --sidebar-foreground: #F5F5F7;
-  --sidebar-primary: #2DD4BF;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #1A1A1A;
-  --sidebar-accent-foreground: #F5F5F7;
-  --sidebar-border: #222222;
-  --sidebar-ring: #2DD4BF;
-}
+  --background: #DCEAFB;
+  --foreground: #100F0F;
+  --card: #FFFFFF;
+  --card-foreground: #100F0F;
+  --popover: #FFFFFF;
+  --popover-foreground: #100F0F;
+  --primary: #1668C7;
+  --primary-foreground: #FFFFFF;
+  --secondary: #EAF2FD;
+  --secondary-foreground: #100F0F;
+  --muted: #EAF2FD;
+  --muted-foreground: #464646;
+  --muted-2: #EFF5FE;
+  --muted-3: #DBEAFC;
+  --muted-4: #E4EEFB;
+  --accent: #1E7FE6;
+  --accent-foreground: #FFFFFF;
+  --success: #00850D;
+  --success-bg: #E4FFE3;
+  --destructive: #FF1406;
+  --destructive-bg: #FFE3E3;
+  --warn: #854E00;
+  --warn-bg: #FFF6E3;
+  --border: #E9E7E7;
+  --input: #E9E7E7;
+  --ring: #1668C7;
+  --wave-from: #DCE8F7;
+  --wave-to: #7FA9DB;
+  --ink: #100F0F;
+  --chart-muted: #808080;
+  --radius: 0.875rem;
+  --header-height: 4rem;
 
-.dark {
-  --background: #000000;
-  --foreground: #F5F5F7;
-  --card: #111111;
-  --card-foreground: #F5F5F7;
-  --popover: #111111;
-  --popover-foreground: #F5F5F7;
-  --primary: #2DD4BF;
-  --primary-foreground: #000000;
-  --secondary: #1A1A1A;
-  --secondary-foreground: #F5F5F7;
-  --muted: #111111;
-  --muted-foreground: #86868B;
-  --accent: #2DD4BF;
-  --accent-foreground: #000000;
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: #222222;
-  --input: #222222;
-  --ring: #2DD4BF;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: #111111;
-  --sidebar-foreground: #F5F5F7;
-  --sidebar-primary: #2DD4BF;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #1A1A1A;
-  --sidebar-accent-foreground: #F5F5F7;
-  --sidebar-border: #222222;
-  --sidebar-ring: #2DD4BF;
+  /* Shared motion tokens — reused across every animated graphic.
+     Entering elements arrive on --ease-out and settle; exits use --ease-in;
+     --ease-settle adds a small physical overshoot for a key landing. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-settle: cubic-bezier(0.34, 1.28, 0.64, 1);
 }
 
 @theme inline {
-  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: var(--font-general-sans), system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -89,42 +56,469 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-muted-2: var(--muted-2);
+  --color-muted-3: var(--muted-3);
+  --color-muted-4: var(--muted-4);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
   --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-bg: var(--destructive-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+  --color-wave-from: var(--wave-from);
+  --color-wave-to: var(--wave-to);
+  --color-ink: var(--ink);
+  --color-chart-muted: var(--chart-muted);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-general-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-semibold tracking-tight;
+  }
+  h5, h6 {
+    @apply font-medium tracking-tight;
   }
 }
 
-/* Smooth scrollbar for dark theme */
+/* Reveal-on-scroll: elements start hidden, .is-revealed transitions them in.
+   Gated so non-JS visitors and reduced-motion users always see content. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 450ms ease-out, transform 450ms ease-out;
+  }
+  .reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .hover-lift {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -8px rgb(22 104 199 / 0.18);
+  }
+  .float-slow {
+    animation: float-drift 5s ease-in-out infinite;
+  }
+  .status-ping {
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  /* Word-by-word heading cascade — see components/reveal-text.tsx. */
+  .reveal-words .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.35em);
+    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+    transition-delay: calc(var(--i) * 45ms);
+  }
+  .reveal-words.is-revealed .word {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Block sweep-in: pair with <Reveal className="reveal-mask">. */
+  .reveal-mask {
+    mask-image: linear-gradient(105deg, #000 35%, transparent 65%);
+    mask-size: 320% 100%;
+    mask-position: 100% 0;
+    transition: mask-position 900ms var(--ease-out);
+  }
+  .reveal-mask.is-revealed {
+    mask-position: 0 0;
+  }
+}
+
+@keyframes float-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.6); }
+}
+
+/* Stacking card scroll effect (Home: cost story → EHR flow → proof numbers).
+   Sticky positioning + the scale/shadow recede only apply at md+ with motion
+   allowed; otherwise cards stay in normal flow with the resting shadow. */
+.stack-card {
+  box-shadow: 0 2px 8px rgba(16, 15, 15, 0.04);
+  transition: box-shadow 200ms ease-out;
+}
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .stack-card {
+    position: sticky;
+    transform-origin: center top;
+    will-change: transform;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Hero phone mockup — components/graphics/AiCallPhone.tsx
+   Everything scales off --ph-w, so one variable resizes the whole device.
+   Static tilt + layout live in the unconditional rules (that IS the
+   reduced-motion end state); only the float/drift keyframes are gated.
+   --------------------------------------------------------------------------- */
+.ph-scene {
+  --ph-w: 210px; /* device width — everything else derives from it */
+  --ph-bw: 150px; /* bubble max width */
+  --ph-bx: 0.36; /* bubble's right edge, as a fraction of --ph-w in from the phone's right —
+                    tuned so the bubble stops just short of the right-aligned avatar */
+  --ph-pad: 34px; /* = bubble protrusion + gutter; keeps the callout inside the card */
+  --ph-r: calc(var(--ph-w) * 0.185);
+  --ph-bez: calc(var(--ph-w) * 0.035); /* ~9px metal edge at the 260px size */
+  --ph-mx: 0;
+  --ph-my: 0;
+  display: flex;
+  justify-content: center;
+  /* transparent — the phone floats on the page's own background */
+  padding: calc(var(--ph-w) * 0.2) 16px calc(var(--ph-w) * 0.22) var(--ph-pad);
+}
+@media (min-width: 640px) {
+  .ph-scene {
+    --ph-w: 232px;
+    --ph-bw: 190px;
+    --ph-pad: 58px;
+  }
+}
+@media (min-width: 1280px) {
+  .ph-scene {
+    --ph-w: 260px;
+    --ph-bw: 210px;
+    --ph-pad: 60px;
+  }
+}
+
+/* Perspective lives HERE, on the direct parent of .ph-tilt — it does not reach a
+   grandchild, and putting it on .ph-scene would have needed preserve-3d on the
+   stage, which breaks z-index ordering for the glow/ground/bubble layers. */
+.ph-stage {
+  position: relative;
+  width: var(--ph-w);
+  perspective: 900px;
+}
+
+/* soft violet glow behind the phone only — no hard edges */
+.ph-stage::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: -14% -42%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.25), transparent 70%);
+  filter: blur(60px);
+}
+
+/* ground-plane contact shadow: narrower than the phone and skewed to match the
+   tilt, so the float reads as hovering rather than pasted flat */
+.ph-ground {
+  position: absolute;
+  z-index: 0;
+  bottom: calc(var(--ph-w) * -0.09);
+  left: 50%;
+  width: 76%;
+  height: calc(var(--ph-w) * 0.1);
+  transform: translateX(-52%) skewX(-14deg);
+  border-radius: 50%;
+  background: rgba(16, 15, 15, 0.4);
+  filter: blur(20px);
+}
+
+/* Left edge forward, right edge receding, slight top-back lean. Mouse parallax
+   adds a few degrees on top; the transition lives here and the float lives on
+   the child, so the two never overwrite each other. */
+.ph-tilt {
+  position: relative;
+  z-index: 1;
+  transform: rotateY(calc(-12deg + var(--ph-mx) * 9deg)) rotateX(calc(4deg + var(--ph-my) * -7deg));
+  will-change: transform;
+}
+
+/* 260 x 560 at the largest size — real iPhone aspect. The metal edge is the
+   frame's own padding: the gradient shows across its full width (an inner dark
+   inset used to eat it, which is why it read as a thin flat outline). */
+.ph-frame {
+  position: relative;
+  width: var(--ph-w);
+  height: calc(var(--ph-w) * 2.154);
+  padding: var(--ph-bez);
+  border-radius: var(--ph-r);
+  background: linear-gradient(
+    138deg,
+    #fdfdfe 0%,
+    #dcdce3 10%,
+    #9d9da8 24%,
+    #f0f0f4 40%,
+    #b6b6c0 54%,
+    #fafafc 70%,
+    #94949f 86%,
+    #d4d4dc 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px rgba(60, 60, 70, 0.45),
+    0 1px 2px rgba(16, 15, 15, 0.28),
+    0 26px 46px -16px rgba(16, 15, 15, 0.42),
+    0 52px 84px -34px rgba(16, 15, 15, 0.32);
+}
+
+.ph-antenna {
+  position: absolute;
+  width: var(--ph-bez);
+  height: 1.5px;
+  background: rgba(58, 58, 66, 0.75);
+}
+.ph-antenna-l1 {
+  left: 0;
+  top: 14%;
+}
+.ph-antenna-l2 {
+  left: 0;
+  bottom: 14%;
+}
+.ph-antenna-r1 {
+  right: 0;
+  top: 14%;
+}
+.ph-antenna-r2 {
+  right: 0;
+  bottom: 14%;
+}
+
+.ph-btn {
+  position: absolute;
+  width: calc(var(--ph-w) * 0.012);
+  border-radius: 2px;
+  background: linear-gradient(180deg, #c7c7ce, #86868f 45%, #b9b9c1);
+}
+.ph-btn-mute {
+  left: calc(var(--ph-w) * -0.011);
+  top: 15.5%;
+  height: 3.6%;
+}
+.ph-btn-vol {
+  left: calc(var(--ph-w) * -0.011);
+  top: 22%;
+  height: 9.5%;
+}
+.ph-btn-power {
+  right: calc(var(--ph-w) * -0.011);
+  top: 25%;
+  height: 13%;
+}
+
+.ph-screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: calc(var(--ph-r) - var(--ph-bez) * 0.85);
+  /* the top has to sit clearly above pure black or the solid-black notch
+     disappears into the screen instead of reading as a cutout */
+  background: radial-gradient(125% 88% at 50% 0%, #34343f 0%, #1a1a21 30%, #0b0b0f 62%, #050507 100%);
+  /* thin dark ring where the glass meets the metal */
+  box-shadow:
+    0 0 0 1.5px #15151a,
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+/* vignette toward the edges */
+.ph-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 78% 62% at 50% 45%, transparent 45%, rgba(0, 0, 0, 0.62) 100%);
+}
+
+.ph-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--ph-w) * 0.05);
+  /* ~90 x 24 at the 260px size */
+  width: calc(var(--ph-w) * 0.346);
+  height: calc(var(--ph-w) * 0.0923);
+  border-radius: 0 0 calc(var(--ph-w) * 0.052) calc(var(--ph-w) * 0.052);
+  background: #000;
+}
+.ph-speaker {
+  width: calc(var(--ph-w) * 0.13);
+  height: calc(var(--ph-w) * 0.014);
+  border-radius: 999px;
+  background: #23232a;
+}
+.ph-camera {
+  width: calc(var(--ph-w) * 0.032);
+  height: calc(var(--ph-w) * 0.032);
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #2b3a52, #0d1119 70%);
+}
+
+.ph-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: calc(var(--ph-w) * 0.155) calc(var(--ph-w) * 0.085) calc(var(--ph-w) * 0.035);
+}
+.ph-timer {
+  text-align: center;
+  font-size: calc(var(--ph-w) * 0.044);
+  letter-spacing: 0.02em;
+  color: #8a8a93;
+}
+.ph-caller {
+  margin-top: calc(var(--ph-w) * 0.018);
+  text-align: center;
+  font-size: calc(var(--ph-w) * 0.105);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+/* Sits low and right — just above the call controls, with the bubble level
+   alongside it. `margin-top: auto` means the avatar (not .ph-controls) absorbs
+   the screen's free space, which is what pins it to the controls. */
+.ph-avatar {
+  position: relative;
+  margin-top: auto;
+  /* the bubble is taller than the avatar and centres on it, so this gap has to
+     clear half that overhang too or the callout crowds the top control row */
+  margin-bottom: calc(var(--ph-w) * 0.115);
+  margin-left: auto;
+  width: calc(var(--ph-w) * 0.19);
+  height: calc(var(--ph-w) * 0.19);
+  overflow: hidden;
+  border-radius: 999px;
+  background: #1a1a20;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+}
+
+.ph-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: calc(var(--ph-w) * 0.075) calc(var(--ph-w) * 0.04);
+}
+.ph-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ph-key {
+  display: flex;
+  width: calc(var(--ph-w) * 0.2);
+  height: calc(var(--ph-w) * 0.2);
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.11);
+  color: #fff;
+}
+.ph-key svg {
+  width: calc(var(--ph-w) * 0.088);
+  height: calc(var(--ph-w) * 0.088);
+}
+.ph-key-active {
+  background: rgba(255, 255, 255, 0.88);
+  color: #0b0b0f;
+}
+.ph-key-end {
+  background: #ff3b30;
+  color: #fff;
+}
+.ph-key-end svg {
+  transform: rotate(135deg);
+}
+.ph-key-label {
+  margin-top: calc(var(--ph-w) * 0.028);
+  font-size: calc(var(--ph-w) * 0.038);
+  color: #c4c4cc;
+}
+.ph-home {
+  margin: calc(var(--ph-w) * 0.075) auto 0;
+  width: calc(var(--ph-w) * 0.36);
+  height: calc(var(--ph-w) * 0.017);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+/* Sits OUTSIDE .ph-tilt: in front of the phone, spanning the left bezel seam,
+   never clipped by the frame. */
+.ph-bubble {
+  position: absolute;
+  z-index: 3;
+  top: 49.5%; /* vertically level with the avatar (measured with the float paused) */
+  right: calc(var(--ph-w) * var(--ph-bx));
+  width: max-content;
+  max-width: var(--ph-bw);
+  border-radius: 16px;
+  background: #7c3aed;
+  padding: calc(var(--ph-w) * 0.05) calc(var(--ph-w) * 0.065);
+  /* real copy, not device chrome — never let it scale below readable */
+  font-size: max(12.5px, calc(var(--ph-w) * 0.05));
+  line-height: 1.35;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ph-tilt {
+    transition: transform 300ms ease-out;
+  }
+  .ph-float {
+    animation: ph-float 5s ease-in-out infinite alternate;
+  }
+  .ph-bubble {
+    animation: ph-bubble 4.1s ease-in-out -1.4s infinite alternate;
+  }
+}
+
+@keyframes ph-float {
+  from {
+    transform: translateY(-7px);
+  }
+  to {
+    transform: translateY(7px);
+  }
+}
+
+@keyframes ph-bubble {
+  from {
+    transform: translateY(-4px);
+  }
+  to {
+    transform: translateY(5px);
+  }
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }

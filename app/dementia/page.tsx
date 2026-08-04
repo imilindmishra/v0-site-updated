@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
-import { Brain, Heart, Pill, Puzzle, Users, Bell } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { PatientMonitoringMockup, CallSummaryMockup } from "@/components/mockups/product-mockups"
+import { HeartHandshake, Heart, Pill, Puzzle, Users, Bell } from "lucide-react"
+import { DementiaLoop } from "@/components/graphics/DementiaLoop"
+import { GraphicScroller } from "@/components/graphic-scroller"
 import { FeatureList } from "@/components/feature-list"
+import { Reveal } from "@/components/reveal"
+import { RevealText } from "@/components/reveal-text"
 
 export const metadata: Metadata = {
   title: "Dementia & Caregiver Support",
@@ -11,12 +12,18 @@ export const metadata: Metadata = {
     "Compassionate AI for cognitive care. Support dementia patients and caregivers with medication reminders, respite support, and simple cognitive exercises.",
 }
 
+const bookingUrl =
+  "https://outlook.office.com/book/iClinicDemo@imedclinic.ai/"
+
+const ctaClasses =
+  "hover-lift inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+
 const voiceScenarios = [
   {
     icon: Heart,
     title: "Caregiver Respite Support",
     description:
-      "Provides companionship calls that give caregivers much-needed breaks. iClinic AI engages patients in gentle conversation, reducing caregiver burnout.",
+      "Companionship calls that give caregivers much-needed breaks. The iClinic dementia agent engages patients in gentle conversation, reducing caregiver burnout.",
   },
   {
     icon: Pill,
@@ -32,7 +39,7 @@ const voiceScenarios = [
   },
 ]
 
-const features = [
+const integrations = [
   {
     icon: Users,
     title: "Family Member Alerts",
@@ -49,149 +56,119 @@ const features = [
 
 export default function DementiaPage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-background py-20 sm:py-28">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-purple-500/10 via-background to-background" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-4 py-1.5 text-sm font-medium text-purple-400">
-              <Brain className="h-4 w-4" />
+    <div className="flex flex-col bg-background">
+      {/* Hero */}
+      <section className="py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto max-w-3xl text-center">
+            <p className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              <HeartHandshake className="h-4 w-4" aria-hidden="true" />
               Cognitive Care
-            </div>
-            <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              Compassionate AI for{" "}
-              <span className="text-primary">Cognitive Care</span>
-            </h1>
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              A patient and calm voice agent designed specifically for dementia
-              patients. iClinic AI handles repetitive questions with grace and
-              provides reliable support for both patients and caregivers.
             </p>
-          </div>
+            <RevealText as="h1" className="mt-4 text-balance text-4xl tracking-tight text-foreground sm:text-5xl">
+              Compassionate AI for <span className="text-primary">Cognitive Care</span>
+            </RevealText>
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+              A patient and calm voice agent designed specifically for dementia
+              patients. The iClinic dementia agent handles repetitive questions
+              with grace and provides reliable support for both patients and
+              caregivers.
+            </p>
+          </Reveal>
 
-          {/* Product mockup */}
-          <div className="mx-auto mt-14 max-w-5xl">
-            <PatientMonitoringMockup />
+          <Reveal delay={100} className="mx-auto mt-12 max-w-3xl">
+            <GraphicScroller minWidth={620}>
+              <DementiaLoop className="h-auto w-full" />
+            </GraphicScroller>
+            <p className="mt-4 text-center text-sm text-muted-foreground">
+              A warm scheduled call delivers the medication reminder, and the
+              family caregiver is notified — gently, every day.
+            </p>
+          </Reveal>
+
+          <div className="mt-10 text-center">
+            <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className={ctaClasses}>
+              Book a Call
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Tone Section */}
-      <section className="bg-card py-16 sm:py-20">
+      {/* Approach */}
+      <section className="py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-              Our Approach
-            </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <Reveal className="mx-auto max-w-3xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Our Approach</p>
+            <RevealText as="h2" className="mt-3 text-3xl tracking-tight text-foreground sm:text-4xl">
               Patience That Never Wavers
-            </p>
-            <div className="mt-8 rounded-2xl border border-border bg-background p-8">
-              <p className="text-lg text-foreground leading-relaxed">
-                iClinic AI&apos;s dementia care module is built with the{" "}
-                <strong className="text-primary">iClinic dementia agent</strong>{" "}
-                designed for repetitive interactions. The agent never shows
-                frustration, maintains consistent warmth, and adapts to the
-                patient&apos;s cognitive state in real-time.
+            </RevealText>
+            <div className="mt-8 rounded-2xl border border-border bg-card p-8">
+              <p className="text-lg leading-relaxed text-foreground">
+                The <strong className="text-primary">iClinic dementia agent</strong>{" "}
+                is built for repetitive interactions. It never shows frustration,
+                maintains consistent warmth, and adapts its tone and pacing to
+                the patient&apos;s cognitive state in real time.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Voice Scenarios */}
-      <section className="bg-background py-16 sm:py-20">
+      {/* Voice scenarios */}
+      <section className="py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-              Voice Scenarios
-            </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              How iClinic AI Helps
-            </p>
-          </div>
+          <Reveal className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Voice Scenarios</p>
+            <RevealText as="h2" className="mt-3 text-3xl tracking-tight text-foreground sm:text-4xl">
+              How the iClinic Dementia Agent Helps
+            </RevealText>
+          </Reveal>
 
           <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {voiceScenarios.map((scenario) => (
-              <div
-                key={scenario.title}
-                className="rounded-2xl border border-border bg-card p-8"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-                  <scenario.icon className="h-6 w-6 text-primary" />
+            {voiceScenarios.map((scenario, i) => (
+              <Reveal key={scenario.title} delay={i * 100} className="hover-lift rounded-2xl border border-border bg-card p-8">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted">
+                  <scenario.icon className="h-6 w-6 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="mt-6 text-xl font-semibold text-foreground">
-                  {scenario.title}
-                </h3>
-                <p className="mt-3 text-muted-foreground leading-relaxed">
-                  {scenario.description}
-                </p>
-              </div>
+                <h3 className="mt-6 text-xl text-foreground">{scenario.title}</h3>
+                <p className="mt-3 leading-relaxed text-muted-foreground">{scenario.description}</p>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Integration Section */}
-      <section className="bg-card py-16 sm:py-20">
+      {/* Care team integration */}
+      <section className="py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-              Integration
-            </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Automated Alerts & Communication
-            </p>
+          <Reveal className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Integration</p>
+            <RevealText as="h2" className="mt-3 text-3xl tracking-tight text-foreground sm:text-4xl">
+              Automated Alerts &amp; Communication
+            </RevealText>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
               Keep the entire care team informed with automatic notifications
               through the EHR portal.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="mt-12 grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="flex gap-4 rounded-xl border border-border bg-background p-6"
-              >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                  <feature.icon className="h-5 w-5 text-primary" />
+          <div className="mx-auto mt-12 grid max-w-4xl gap-8 md:grid-cols-2">
+            {integrations.map((feature, i) => (
+              <Reveal key={feature.title} delay={i * 100} className="hover-lift flex gap-4 rounded-2xl border border-border bg-card p-6">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
+                  <feature.icon className="h-5 w-5 text-primary" aria-hidden="true" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
+                  <h3 className="text-foreground">{feature.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{feature.description}</p>
                 </div>
-              </div>
+              </Reveal>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Product Screen */}
-      <section className="bg-background py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">Inside the Platform</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Calm Conversations, Clearly Documented
-            </p>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-              Each check-in call is transcribed and summarized so the care team and family stay informed.
-            </p>
-          </div>
-          <div className="mx-auto mt-12 max-w-3xl">
-            <CallSummaryMockup />
           </div>
         </div>
       </section>
 
       <FeatureList
-        variant="card"
         title="What You Can Do with Dementia Support"
         description="Practical, everyday support for patients, caregivers, and clinicians."
         features={[
@@ -207,25 +184,22 @@ export default function DementiaPage() {
       />
 
       {/* CTA */}
-      <section className="bg-background py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Support your dementia care practice
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            See how iClinic AI can provide compassionate support for patients and
-            relief for caregivers.
-          </p>
-          <div className="mt-8">
-            <Link href="/about#demo">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8"
-              >
-                Watch and Book a Demo
-              </Button>
-            </Link>
-          </div>
+      <section className="py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <Reveal>
+            <RevealText as="h2" className="text-3xl tracking-tight text-foreground sm:text-4xl">
+              Support your dementia care practice
+            </RevealText>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+              See how iClinic AI can provide compassionate support for patients
+              and relief for caregivers.
+            </p>
+            <div className="mt-8">
+              <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className={ctaClasses}>
+                Book a Call
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>

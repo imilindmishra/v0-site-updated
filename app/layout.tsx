@@ -1,12 +1,11 @@
 import React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { SmoothScroll } from "@/components/smooth-scroll"
+import { generalSans } from "./fonts"
 import "./globals.css"
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: {
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s | iClinic AI",
   },
   description:
-    "Voice AI with a HIPAA-compliant architecture, built to integrate with major EHR systems via FHIR to handle scheduling, refills, and triage. Currently in early production in a live clinical setting.",
+    "Voice AI with a HIPAA-compliant architecture, built to integrate with major EHR systems via FHIR to handle scheduling, refills, and triage.",
   keywords: [
     "healthcare AI",
     "EHR integration",
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#DCEAFB",
 }
 
 export default function RootLayout({
@@ -39,9 +38,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} font-sans antialiased`}>
+      <body className={`${generalSans.variable} font-sans antialiased`}>
+        <SmoothScroll />
         <Header />
-        <main className="min-h-screen pt-16">{children}</main>
+        <main className="min-h-screen">{children}</main>
         <Footer />
         <Analytics />
       </body>

@@ -1,130 +1,25 @@
-export function Logo({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 1500 1000"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <linearGradient
-          id="linear-gradient"
-          x1="945.6"
-          y1="662.12"
-          x2="1074.38"
-          y2="662.12"
-          gradientTransform="translate(2019.98 1324.25) rotate(-180)"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0" stopColor="#fff" stopOpacity=".35" />
-          <stop offset=".3" stopColor="#fff" stopOpacity=".15" />
-          <stop offset=".7" stopColor="#fff" stopOpacity=".05" />
-          <stop offset="1" stopColor="#fff" stopOpacity="0" />
-        </linearGradient>
-        <linearGradient
-          id="linear-gradient1"
-          x1="425.62"
-          y1="661.96"
-          x2="555.54"
-          y2="661.96"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0" stopColor="#fff" stopOpacity="0" />
-          <stop offset=".3" stopColor="#fff" stopOpacity=".05" />
-          <stop offset=".7" stopColor="#fff" stopOpacity=".15" />
-          <stop offset="1" stopColor="#fff" stopOpacity=".35" />
-        </linearGradient>
-      </defs>
-      <rect fill="#020202" x="0" width="1500" height="1000" />
-      <g>
-        <g>
-          <path
-            fill="#fff"
-            d="M763.46,300h-48.13l-52.78,147.49h42.55l34.28-97.15,33.99,97.15h42.84l-52.75-147.49Z"
-          />
-          <path
-            fill="#fff"
-            d="M871.31,307.26c-4.82-4.85-10.67-7.26-17.58-7.26s-13.11,2.41-17.94,7.26c-4.82,4.82-7.23,10.79-7.23,17.91s2.41,13.11,7.23,17.94c4.82,4.82,10.82,7.23,17.94,7.23s12.76-2.41,17.58-7.23c4.82-4.82,7.23-10.79,7.23-17.94s-2.41-13.08-7.23-17.91ZM832.58,368.66v69.01l41.58,116.23v-185.24h-41.58Z"
-          />
-          <polygon
-            fill="#fff"
-            points="854.28 553.9 810.53 553.9 792.27 502.09 686.13 502.09 667.9 553.9 624.47 553.9 655.13 468.19 823.62 468.19 832.58 493.24 854.28 553.9"
-          />
-        </g>
-        <g>
-          <g>
-            <path
-              fill="#fff"
-              d="M555.54,632.94c0,9.83-14.9,9.83-14.9,0s14.9-9.83,14.9,0ZM541.78,647.12v51.23h12.63v-51.23h-12.63Z"
-            />
-            <path
-              fill="#fff"
-              d="M633.67,689.24c-7.45,7.35-17.07,10.76-27.53,10.76-26.91,0-38.29-18.52-38.39-37.36-.1-18.94,12.21-38.19,38.39-38.19,9.83,0,19.14,3.73,26.59,11.07l-9.11,8.8c-4.76-4.66-11.18-6.83-17.49-6.83-17.49,0-25.04,13.04-24.94,25.14.1,12.01,7.04,24.53,24.94,24.53,6.31,0,13.45-2.59,18.21-7.35l9.31,9.42Z"
-            />
-            <path
-              fill="#fff"
-              d="M654.97,626.01v72.33h-12.52v-72.33h12.52Z"
-            />
-            <path
-              fill="#fff"
-              d="M682.91,632.94c0,9.83-14.9,9.83-14.9,0s14.9-9.83,14.9,0ZM669.14,647.12v51.23h12.63v-51.23h-12.63Z"
-            />
-            <path
-              fill="#fff"
-              d="M733.82,698.34v-26.7c0-7.76-4.24-13.66-12.31-13.66s-13.04,6.52-13.04,14.28v26.08h-12.52v-51.12h11.28l.83,6.93c5.17-5.07,10.35-7.66,16.76-7.66,12,0,21.63,9,21.63,25.04v26.8h-12.63Z"
-            />
-            <path
-              fill="#fff"
-              d="M774.16,632.94c0,9.83-14.9,9.83-14.9,0s14.9-9.83,14.9,0ZM760.4,647.12v51.23h12.63v-51.23h-12.63Z"
-            />
-            <path
-              fill="#fff"
-              d="M831.28,691.82c-5.9,5.79-12.11,8.07-19.66,8.07-14.8,0-27.11-8.9-27.11-27.01s12.31-27.01,27.11-27.01c7.24,0,12.83,2.07,18.42,7.55l-7.97,8.38c-3-2.69-6.73-4.04-10.25-4.04-8.49,0-14.69,6.21-14.69,15.11,0,9.73,6.62,14.9,14.49,14.9,4.04,0,8.07-1.14,11.18-4.24l8.49,8.28Z"
-            />
-            <path
-              fill="#fff"
-              d="M916.33,684.68h-37.88l-6.21,13.66h-14.8l32.49-72.44h14.9l32.49,72.44h-14.9l-6.11-13.66ZM897.39,641.12l-13.45,30.84h26.91l-13.45-30.84Z"
-            />
-            <path fill="#fff" d="M945.6,698.34v-72.44h13.56v72.44h-13.56Z" />
-          </g>
-          <rect
-            fill="url(#linear-gradient)"
-            x="945.6"
-            y="625.9"
-            width="128.78"
-            height="72.44"
-            transform="translate(2019.98 1324.25) rotate(180)"
-          />
-          <path
-            fill="url(#linear-gradient1)"
-            d="M555.37,634.35c.08-.45.17-.89.17-1.4,0-1.65-.4-3-1.13-4.1-1.36-2.19-3.84-3.29-6.32-3.29h-122.48v72.78h128.8v-53.78c.05-2.45.23-6.23.83-9.36,0-.01,0-.02.01-.03,0-.06,0-.09.03-.14,0-.07.03-.14.04-.22.03-.14.05-.28.08-.42l-.04-.04Z"
-          />
-        </g>
-      </g>
-    </svg>
-  )
-}
-
+/**
+ * LogoMark — the "Ai" monogram (hollow A + dotted i) from the client app
+ * (iClinic-Frontend public/logo/logo.svg), in the brand blue gradient.
+ * Self-contained; the gradient id is fixed and identical across instances.
+ */
 export function LogoMark({ className = "" }: { className?: string }) {
   return (
-    <svg
-      viewBox="600 280 300 300"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g>
-        <path
-          fill="currentColor"
-          d="M763.46,300h-48.13l-52.78,147.49h42.55l34.28-97.15,33.99,97.15h42.84l-52.75-147.49Z"
-        />
-        <path
-          fill="currentColor"
-          d="M871.31,307.26c-4.82-4.85-10.67-7.26-17.58-7.26s-13.11,2.41-17.94,7.26c-4.82,4.82-7.23,10.79-7.23,17.91s2.41,13.11,7.23,17.94c4.82,4.82,10.82,7.23,17.94,7.23s12.76-2.41,17.58-7.23c4.82-4.82,7.23-10.79,7.23-17.94s-2.41-13.08-7.23-17.91ZM832.58,368.66v69.01l41.58,116.23v-185.24h-41.58Z"
-        />
-        <polygon
-          fill="currentColor"
-          points="854.28 553.9 810.53 553.9 792.27 502.09 686.13 502.09 667.9 553.9 624.47 553.9 655.13 468.19 823.62 468.19 832.58 493.24 854.28 553.9"
-        />
-      </g>
+    <svg viewBox="3 5 38 38" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="iclinicLogoGrad" x1="6" y1="8" x2="38" y2="40" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#5BB6F7" />
+          <stop offset="1" stopColor="#1E7FE6" />
+        </linearGradient>
+      </defs>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M5.6 39 L18 7.6 L30.4 39 L24.6 39 L22.2 32.6 L13.8 32.6 L11.4 39 Z M18 19.6 L15.1 27.6 L20.9 27.6 Z"
+        fill="url(#iclinicLogoGrad)"
+      />
+      <rect x="32.4" y="18.4" width="5.4" height="20.6" rx="2.7" fill="url(#iclinicLogoGrad)" />
+      <circle cx="35.1" cy="11.5" r="3.2" fill="url(#iclinicLogoGrad)" />
     </svg>
   )
 }

@@ -1,377 +1,297 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Play, Mic, FileText, Shield, Calendar, Stethoscope, Clock } from "lucide-react"
 import {
-  CallDashboardMockup,
-  CallSummaryMockup,
-  SchedulingMockup,
-  PatientMonitoringMockup,
-} from "@/components/mockups/product-mockups"
-import { YouTubeEmbed } from "@/components/youtube-embed"
+  ArrowRight,
+  Calendar,
+  Clock,
+  FileText,
+  Mic,
+  Shield,
+  Stethoscope,
+} from "lucide-react"
+import { AiCallPhone } from "@/components/graphics/AiCallPhone"
+import { EhrFlow } from "@/components/graphics/EhrFlow"
+import { SecurityShield } from "@/components/graphics/SecurityShield"
+import { VoicemailLeak } from "@/components/graphics/VoicemailLeak"
+import { GraphicScroller } from "@/components/graphic-scroller"
+import { CardStack, StackCard } from "@/components/card-stack"
+import { ProofStats } from "@/components/home/proof-stats"
+import { CountUp } from "@/components/count-up"
+import { Reveal } from "@/components/reveal"
+import { RevealText } from "@/components/reveal-text"
 
-const stats = [
-  { label: "Calls Missed Daily", value: "47" },
-  { label: "Revenue Lost/Month", value: "$25K" },
-  { label: "Staff Burnout Rate", value: "68%" },
+const BOOKING_URL =
+  "https://outlook.office.com/book/iClinicDemo@imedclinic.ai/"
+
+const eyebrow = "text-xs font-semibold uppercase tracking-[0.2em] text-primary"
+
+const problemStats = [
+  { num: 47, prefix: "", suffix: "", label: "Calls missed per day at a typical front desk" },
+  { num: 25, prefix: "~$", suffix: "K", label: "Revenue lost per month to unanswered calls" },
+  { num: 68, prefix: "", suffix: "%", label: "Of front-desk staff report burnout" },
 ]
 
-const solutionStats = [
-  { label: "Target Admin Overhead Reduction", value: "40%" },
-  { label: "Target Patient Adherence Gain", value: "22%" },
-  { label: "Target ROI Timeline", value: "90 Days" },
-]
-
-const evidenceStats = [
-  { label: "Live Clinical Deployment", value: "1" },
-  { label: "EHR Connectivity", value: "FHIR" },
-  { label: "Calls Answered, Day or Night", value: "24/7" },
-]
-
-const specs = [
+const techSpecs = [
   {
     icon: Mic,
-    title: "Voice AI Engine",
-    value: "Real-Time",
-    unit: "Recognition",
-    description: "Real-time voice recognition tuned for medical terminology and clinical workflows",
+    title: "Voice AI engine",
+    description:
+      "Real-time voice recognition tuned for medical terminology and clinical workflows.",
   },
   {
     icon: FileText,
-    title: "EHR Integration",
-    value: "FHIR",
-    unit: "Standards",
-    description: "Built to integrate with major EHR systems via FHIR and HL7 interoperability standards",
+    title: "EHR integration",
+    description:
+      "Built to integrate with major EHR systems via FHIR and HL7 interoperability standards.",
   },
   {
     icon: Shield,
-    title: "Security & Privacy",
-    value: "HIPAA",
-    unit: "Architecture",
-    description: "HIPAA-compliant architecture with end-to-end encryption. SOC 2 compliance in progress.",
+    title: "Security & privacy",
+    description:
+      "HIPAA-compliant architecture with end-to-end encryption and SOC 2 Type 2 controls.",
   },
   {
     icon: Calendar,
-    title: "Smart Scheduling",
-    value: "Automated",
-    unit: "Reminders",
-    description: "AI-powered appointment management designed to reduce no-shows with automated reminders and follow-ups",
+    title: "Smart scheduling",
+    description:
+      "Appointments booked, rescheduled, and confirmed by voice, with automated reminders designed to reduce no-shows.",
   },
   {
     icon: Stethoscope,
-    title: "Intelligent Triage",
-    value: "Protocol",
-    unit: "Driven",
-    description: "Clinically informed protocols for patient routing and prioritization, escalating urgent cases to staff",
+    title: "Intelligent triage",
+    description:
+      "Clinically informed protocols route and prioritize patients, escalating urgent cases to your staff.",
   },
   {
     icon: Clock,
-    title: "Always Available",
-    value: "24/7",
-    unit: "Answering",
-    description: "An always-on voice agent that never calls in sick and never takes a break",
+    title: "Always available",
+    description:
+      "An always-on voice agent that answers day or night, and never calls in sick.",
   },
 ]
 
-function StatBlock({ items }: { items: { label: string; value: string }[] }) {
+const securityItems = [
+  { title: "HIPAA compliant", detail: "Business Associate Agreement signed with every clinic." },
+  { title: "SOC 2 Type 2", detail: "Annual third-party audits of our security controls." },
+  { title: "AES-256 encryption", detail: "Data encrypted at rest and in transit." },
+  { title: "PHI redaction", detail: "Automated redaction before anything is stored." },
+  { title: "US-only data centers", detail: "All data stays in US AWS regions." },
+  { title: "Minimal retention", detail: "Voice data kept only as long as clinically needed." },
+]
+
+function BookACall({ large = false }: { large?: boolean }) {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
-      {items.map((stat) => (
-        <div key={stat.label} className="text-center">
-          <div className="text-3xl md:text-5xl font-bold tabular-nums" style={{ color: "#2DD4BF" }}>
-            {stat.value}
-          </div>
-          <div className="mt-2 text-sm" style={{ color: "#86868B" }}>
-            {stat.label}
-          </div>
-        </div>
-      ))}
-    </div>
+    <a
+      href={BOOKING_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center gap-2 rounded-full bg-primary font-semibold text-primary-foreground transition-colors hover:bg-primary/90 hover-lift ${
+        large ? "h-12 px-8 text-base" : "h-10 px-6 text-sm"
+      }`}
+    >
+      Book a Call
+      <ArrowRight className={large ? "h-5 w-5" : "h-4 w-4"} aria-hidden />
+    </a>
   )
 }
 
 export default function HomePage() {
   return (
-    <div style={{ backgroundColor: "#000000" }} className="-mt-16">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-start justify-start overflow-hidden pt-16">
-        <Image
-          src="/images/voice-ai-hero.jpg"
-          alt="iClinic Voice AI - Stethoscope with audio waveform"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 35%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0.2) 100%)",
-          }}
-        />
-        <div className="relative z-10 text-left px-6 md:px-12 lg:px-16 pt-24 md:pt-32 lg:pt-40 max-w-xl">
-          <p className="text-xs tracking-[0.3em] uppercase mb-3" style={{ color: "#2DD4BF" }}>
-            Introducing
-          </p>
-          <h1
-            className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight"
-            style={{ color: "#F5F5F7" }}
-          >
-            iClinic Voice AI
-          </h1>
-          <p className="mt-3 text-sm md:text-base max-w-sm leading-relaxed" style={{ color: "#A1A1A6" }}>
-            The EHR-integrated voice agent for modern clinics. Where empathy meets algorithm.
-          </p>
-          <div
-            className="mt-5 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium"
-            style={{ backgroundColor: "rgba(45,212,191,0.12)", color: "#2DD4BF" }}
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-current" />
-            </span>
-            Currently in early production — deployed and tested in a live clinical setting
-          </div>
-          <div className="mt-6 flex flex-col sm:flex-row items-start gap-3">
-            <a
-              href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2FER6k7M9SJL3FDXJ79G2BNARX1RVNIqYVIxOBaEKEpurkpxXNKHfuPqEuSQqv0lkUObJcLwVz"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button
-                size="default"
-                className="font-semibold rounded-full px-5 h-10 text-sm"
-                style={{ backgroundColor: "#2DD4BF", color: "#000000" }}
-              >
-                Book a Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </a>
-            <a href="https://youtu.be/6Wu202Wpj7k" target="_blank" rel="noopener noreferrer">
-              <Button
-                variant="outline"
-                size="default"
-                className="bg-transparent rounded-full px-5 h-10 text-sm"
-                style={{ borderColor: "rgba(255,255,255,0.2)", color: "#F5F5F7" }}
-              >
-                <Play className="mr-2 h-4 w-4" />
-                Watch Demo
-              </Button>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Problem Section */}
-      <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm tracking-[0.3em] uppercase mb-6" style={{ color: "#2DD4BF" }}>
-            The Problem
-          </p>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{ color: "#F5F5F7" }}>
-            Your Front Desk Is Overwhelmed
-          </h2>
-          <p className="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: "#86868B" }}>
-            67% of patients who call and reach voicemail never call back. Missed calls mean missed revenue, delayed care,
-            and frustrated patients. Your front desk team is burned out managing 200+ calls per day.
-          </p>
-          <div className="mt-12">
-            <StatBlock items={stats} />
-          </div>
-        </div>
-      </section>
-
-      {/* Solution Section */}
-      <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm tracking-[0.3em] uppercase mb-6" style={{ color: "#2DD4BF" }}>
-            The Solution
-          </p>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{ color: "#F5F5F7" }}>
-            An AI Voice Agent That Never Sleeps
-          </h2>
-          <p className="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: "#86868B" }}>
-            iClinic Voice AI handles scheduling, refills, triage, and patient inquiries 24/7. It integrates directly with
-            your EHR, so every interaction is documented, every appointment is booked, and every patient is heard.
-          </p>
-          <div className="mt-12">
-            <StatBlock items={solutionStats} />
-          </div>
-        </div>
-      </section>
-
-      {/* Product Showcase Section */}
-      <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto">
-            <p className="text-sm tracking-[0.3em] uppercase mb-6" style={{ color: "#2DD4BF" }}>
-              See the Product
-            </p>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{ color: "#F5F5F7" }}>
-              This Is What Your Team Sees
-            </h2>
-            <p className="mt-6 text-lg md:text-xl leading-relaxed" style={{ color: "#86868B" }}>
-              A live look at the iClinic AI workspace — every call answered, summarized, and synced to your EHR, with
-              appointments booked and at-risk patients surfaced automatically.
-            </p>
-          </div>
-
-          <div className="mt-16 grid gap-8 lg:grid-cols-2">
-            <div>
-              <CallDashboardMockup />
-              <p className="mt-4 text-center text-sm" style={{ color: "#86868B" }}>
-                Call dashboard — live view of every inbound call and its outcome
+    <div className="bg-background">
+      {/* Hero — the thesis */}
+      <section className="px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-2xl border border-border bg-card px-6 py-14 sm:px-10 md:py-20">
+          <div className="grid items-center gap-12 xl:grid-cols-2">
+            <Reveal>
+              <p className={eyebrow}>Voice AI for clinics</p>
+              <RevealText as="h1" className="mt-4 text-4xl tracking-tight text-balance text-foreground md:text-5xl lg:text-6xl">
+                Every patient call answered. Every call written to the EHR.
+              </RevealText>
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
+                iClinic AI answers your clinic&apos;s phone 24/7 — booking appointments,
+                handling refills, and triaging by voice — then writes a structured note
+                straight back into your EHR over FHIR.
               </p>
-            </div>
-            <div>
-              <CallSummaryMockup />
-              <p className="mt-4 text-center text-sm" style={{ color: "#86868B" }}>
-                Call summary &amp; transcript — auto-documented and logged to the chart
-              </p>
-            </div>
-            <div>
-              <SchedulingMockup />
-              <p className="mt-4 text-center text-sm" style={{ color: "#86868B" }}>
-                Scheduling — appointments booked from the call and synced to the EHR
-              </p>
-            </div>
-            <div>
-              <PatientMonitoringMockup />
-              <p className="mt-4 text-center text-sm" style={{ color: "#86868B" }}>
-                Patient monitoring — daily vitals with automatic care-team alerts
-              </p>
-            </div>
+              <div className="mt-8">
+                <BookACall large />
+              </div>
+            </Reveal>
+            <Reveal delay={120} className="min-w-0">
+              <AiCallPhone className="mx-auto my-4 xl:my-8" />
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Demo Video Section */}
-      <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center">
-            <p className="text-sm tracking-[0.3em] uppercase mb-6" style={{ color: "#2DD4BF" }}>
-              Watch It Work
+      {/* Problem → mechanism → proof: a stacked run of three compact cards.
+          The three StackCards are direct children of CardStack — a sticky
+          element can only travel within its own parent's box, so wrapping
+          each one in its own same-height <section> (the old structure) gave
+          it zero room to move and silently no-opped the effect. Vertical
+          rhythm now lives as margin-bottom on each card (in-flow spacing
+          before it pins / the mobile-and-reduced-motion fallback gap)
+          instead of section padding. Sticky-stacking is md+ and
+          motion-allowed only (see .stack-card in globals.css); below that,
+          or under reduced motion, these are just three normal cards in flow. */}
+      <CardStack className="px-4 pt-20 pb-20 sm:px-6 md:pt-28 md:pb-28 lg:px-8">
+        <StackCard
+          index={0}
+          className="mx-auto mb-6 max-w-7xl rounded-2xl border border-border bg-card px-6 py-6 sm:px-10 md:mb-8 md:py-6"
+        >
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <p className={eyebrow}>The cost of a missed call</p>
+            <RevealText as="h2" className="mt-2 text-3xl tracking-tight text-balance text-foreground md:text-4xl">
+              Nothing goes to voicemail
+            </RevealText>
+            <p className="mt-2 text-base leading-snug text-muted-foreground md:text-lg">
+              67% of patients who reach voicemail never call back. Missed calls mean
+              missed revenue, delayed care, and a front desk burned out managing 200+
+              calls a day. With iClinic AI, every call gets through.
             </p>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-balance" style={{ color: "#F5F5F7" }}>
-              See iClinic AI in Action
-            </h2>
-            <p className="mt-6 text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "#86868B" }}>
-              Watch our voice agent handle a real prescription refill and scheduling request from start to finish.
+          </Reveal>
+          <Reveal delay={120} className="mx-auto mt-4 max-w-[720px]">
+            <GraphicScroller minWidth={720}>
+              <VoicemailLeak className="h-auto w-full" />
+            </GraphicScroller>
+          </Reveal>
+        </StackCard>
+
+        <StackCard
+          index={1}
+          className="mx-auto mb-6 max-w-7xl rounded-2xl border border-border bg-card px-6 py-8 sm:px-10 md:mb-8 md:py-8"
+        >
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <p className={eyebrow}>Connected to your EHR</p>
+            <RevealText as="h2" className="mt-2 text-3xl tracking-tight text-balance text-foreground md:text-4xl">
+              From conversation to chart, automatically
+            </RevealText>
+            <p className="mt-2 text-base leading-relaxed text-muted-foreground md:text-lg">
+              Every call is understood, structured, and written back to the patient&apos;s
+              chart over FHIR — no transcribing, no sticky notes, no follow-up data entry.
             </p>
-          </div>
-          <div className="mt-12">
-            <YouTubeEmbed videoId="6Wu202Wpj7k" title="iClinic AI demo" />
-          </div>
+          </Reveal>
+          <Reveal delay={120} className="mx-auto mt-6 max-w-[720px]">
+            <GraphicScroller minWidth={720}>
+              <EhrFlow className="h-auto w-full" />
+            </GraphicScroller>
+          </Reveal>
+        </StackCard>
+
+        <StackCard
+          index={2}
+          className="mx-auto max-w-7xl rounded-2xl border border-border bg-card px-6 py-14 sm:px-10 md:py-20"
+        >
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <p className={eyebrow}>Early deployment</p>
+            <RevealText as="h2" className="mt-4 text-3xl tracking-tight text-balance text-foreground md:text-4xl">
+              Real numbers from an early deployment
+            </RevealText>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              Measured during an early deployment — not projections. Every other figure on
+              this site is a target.
+            </p>
+          </Reveal>
+          <Reveal delay={120} className="mx-auto mt-12 max-w-4xl">
+            <ProofStats />
+          </Reveal>
+        </StackCard>
+      </CardStack>
+
+      {/* The cost, in numbers — kept out of the stacked card so it stays
+          well under the 85vh sticky-stack ceiling at desktop widths. */}
+      <section className="px-4 pb-20 sm:px-6 md:pb-28 lg:px-8">
+        <div className="mx-auto grid max-w-4xl items-stretch gap-4 sm:grid-cols-3">
+          {problemStats.map((stat, i) => (
+            <Reveal key={stat.label} delay={i * 80} className="h-full">
+              <div className="flex h-full flex-col rounded-2xl bg-muted p-6 text-center hover-lift">
+                <CountUp
+                  value={stat.num}
+                  prefix={stat.prefix}
+                  suffix={stat.suffix}
+                  delay={i * 120}
+                  className="text-3xl font-semibold tracking-tight text-destructive"
+                />
+                <p className="mt-2 text-sm text-muted-foreground">{stat.label}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      {/* Evidence Section */}
-      <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm tracking-[0.3em] uppercase mb-6" style={{ color: "#2DD4BF" }}>
-            The Evidence
-          </p>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-balance" style={{ color: "#F5F5F7" }}>
-            Built for Real Clinical Use
-          </h2>
-          <p className="mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style={{ color: "#86868B" }}>
-            iClinic Voice AI is deployed and tested in a live clinical setting today. It runs on a HIPAA-compliant
-            architecture (SOC 2 compliance in progress) and is built to integrate with major EHR systems via FHIR.
-          </p>
-          <div className="mt-12">
-            <StatBlock items={evidenceStats} />
-          </div>
-        </div>
-      </section>
-
-      {/* Tech Grid */}
-      <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-sm tracking-[0.3em] uppercase mb-4" style={{ color: "#2DD4BF" }}>
-              Technology
-            </p>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight" style={{ color: "#F5F5F7" }}>
-              Built for Healthcare
-            </h2>
-            <p className="mt-4 text-lg max-w-xl mx-auto" style={{ color: "#86868B" }}>
+      {/* Tech grid */}
+      <section className="px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <p className={eyebrow}>Technology</p>
+            <RevealText as="h2" className="mt-4 text-3xl tracking-tight text-balance text-foreground md:text-4xl">
+              Built for healthcare
+            </RevealText>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
               Every component engineered for clinical precision and reliability.
             </p>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {specs.map((spec) => {
+          </Reveal>
+          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {techSpecs.map((spec, i) => {
               const Icon = spec.icon
               return (
-                <div
-                  key={spec.title}
-                  className="rounded-2xl p-8"
-                  style={{ backgroundColor: "#111111", border: "1px solid #222222" }}
-                >
-                  <Icon className="h-6 w-6 mb-4" style={{ color: "#2DD4BF" }} />
-                  <h3 className="text-sm font-medium mb-3 tracking-wide uppercase" style={{ color: "#86868B" }}>
-                    {spec.title}
-                  </h3>
-                  <div className="flex items-baseline gap-2 mb-4">
-                    <span className="text-4xl font-bold tracking-tight" style={{ color: "#F5F5F7" }}>
-                      {spec.value}
-                    </span>
-                    <span className="text-sm" style={{ color: "#86868B" }}>
-                      {spec.unit}
-                    </span>
+                <Reveal key={spec.title} delay={(i % 3) * 80}>
+                  <div className="h-full rounded-2xl border border-border bg-card p-8 hover-lift">
+                    <Icon className="h-6 w-6 text-primary" aria-hidden />
+                    <h3 className="mt-4 text-lg tracking-tight text-foreground">{spec.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {spec.description}
+                    </p>
                   </div>
-                  <p className="text-sm leading-relaxed" style={{ color: "#86868B" }}>
-                    {spec.description}
-                  </p>
-                </div>
+                </Reveal>
               )
             })}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 md:py-32 px-4" style={{ borderTop: "1px solid #111111" }}>
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm tracking-[0.3em] uppercase mb-6" style={{ color: "#2DD4BF" }}>
-            Get Started
-          </p>
-          <h2
-            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance"
-            style={{ color: "#F5F5F7" }}
-          >
-            Experience the Future of Clinical Communication
-          </h2>
-          <p className="mt-6 text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: "#86868B" }}>
-            See how voice AI can help your clinic reduce administrative overhead and improve patient adherence. Currently
-            in early production in a live clinical setting.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2FER6k7M9SJL3FDXJ79G2BNARX1RVNIqYVIxOBaEKEpurkpxXNKHfuPqEuSQqv0lkUObJcLwVz"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button
-                size="lg"
-                className="font-semibold rounded-full px-8 h-14 text-base"
-                style={{ backgroundColor: "#2DD4BF", color: "#000000" }}
-              >
-                Book a Demo
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </a>
-            <a href="https://youtu.be/6Wu202Wpj7k" target="_blank" rel="noopener noreferrer">
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-transparent rounded-full px-8 h-14 text-base"
-                style={{ borderColor: "#333333", color: "#F5F5F7" }}
-              >
-                <Play className="mr-2 h-5 w-5" />
-                Watch Demo
-              </Button>
-            </a>
+      {/* Security band — the one dark section site-wide */}
+      <section className="bg-ink py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 xl:grid-cols-2">
+            <Reveal>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                Security &amp; compliance
+              </p>
+              <RevealText as="h2" className="mt-4 text-3xl tracking-tight text-balance text-card md:text-4xl">
+                Patient data, protected end to end
+              </RevealText>
+              <dl className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+                {securityItems.map((item) => (
+                  <div key={item.title}>
+                    <dt className="text-sm font-semibold text-card">{item.title}</dt>
+                    <dd className="mt-1 text-sm leading-relaxed text-card/60">{item.detail}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+            <Reveal delay={120} className="min-w-0">
+              <GraphicScroller minWidth={580}>
+                <SecurityShield className="h-auto w-full" />
+              </GraphicScroller>
+            </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-2xl border border-border bg-card px-6 py-14 text-center sm:px-10 md:py-20">
+          <Reveal>
+            <p className={eyebrow}>Get started</p>
+            <RevealText as="h2" className="mt-4 text-3xl tracking-tight text-balance text-foreground md:text-4xl">
+              Hear it answer your clinic&apos;s calls
+            </RevealText>
+            <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">
+              Book a call with our team and see how a voice agent fits your front desk,
+              your EHR, and your patients.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <BookACall large />
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>

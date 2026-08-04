@@ -8,15 +8,14 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 
-const CONTACT_EMAIL = "Info@imedclinic.ai"
+const CONTACT_EMAIL = "info@imedclinic.ai"
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const form = e.currentTarget
-    const data = new FormData(form)
+    const data = new FormData(e.currentTarget)
     const name = String(data.get("name") || "")
     const clinic = String(data.get("clinic") || "")
     const email = String(data.get("email") || "")
@@ -34,6 +33,7 @@ export function ContactForm() {
       message,
     ].join("\n")
 
+    // ponytail: mailto only — no backend in scope; swap for an API route when one exists
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`
@@ -41,25 +41,29 @@ export function ContactForm() {
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-8">
-      <h2 className="text-2xl font-bold tracking-tight text-foreground">Request a Demo</h2>
+    <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+      <h2 className="text-2xl font-semibold tracking-tight text-foreground">Request a Demo</h2>
       <p className="mt-3 text-muted-foreground leading-relaxed">
         Tell us a little about your clinic, the EHR you use, and what you&apos;d like to automate. We&apos;ll set up a
         walkthrough of iClinic AI tailored to your workflow.
       </p>
 
-      {submitted ? (
-        <div className="mt-8 flex items-start gap-3 rounded-xl border border-primary/30 bg-primary/10 p-4">
-          <Check className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-          <p className="text-sm text-foreground leading-relaxed">
-            Thanks! Your email draft should have opened. If it didn&apos;t, email us directly at{" "}
-            <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold text-primary hover:underline">
-              {CONTACT_EMAIL}
-            </a>
-            .
-          </p>
-        </div>
-      ) : (
+      <div role="status" aria-live="polite">
+        {submitted && (
+          <div className="mt-8 flex items-start gap-3 rounded-xl bg-success-bg p-4">
+            <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-success" />
+            <p className="text-sm text-success leading-relaxed">
+              Thanks! Your email draft should have opened. If it didn&apos;t, email us directly at{" "}
+              <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold underline">
+                {CONTACT_EMAIL}
+              </a>
+              .
+            </p>
+          </div>
+        )}
+      </div>
+
+      {!submitted && (
         <form onSubmit={handleSubmit} className="mt-8 space-y-5">
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="space-y-2">
@@ -91,9 +95,13 @@ export function ContactForm() {
               placeholder="Scheduling, refills, after-hours calls, patient follow-ups..."
             />
           </div>
-          <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button
+            type="submit"
+            size="lg"
+            className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+          >
             Send Message
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
           </Button>
           <p className="text-center text-xs text-muted-foreground">
             This opens a pre-filled email to our team. Prefer email directly?{" "}
