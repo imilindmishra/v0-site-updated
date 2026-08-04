@@ -16,16 +16,24 @@ const points = [
   [398, 138],
 ] as const
 
+/**
+ * Cumulative change from the first check-in, not absolute weights — derived from
+ * the graphic's own "+4 lbs in 3 days" claim (day 4 → day 6 = +4.0) rather than
+ * inventing clinical values the product hasn't measured.
+ */
+const deltas = ["baseline", "+0.4 lb", "+0.9 lb", "+1.6 lb", "+3.1 lb", "+5.6 lb"] as const
+
 export function HeartFailureLoop({ className }: { className?: string }) {
   const linePoints = points.map((p) => p.join(",")).join(" ")
   const [bx, by] = points[points.length - 1]
 
   return (
+    <div className={`hf-scene ${className ?? ""}`}>
     <svg
       viewBox="0 0 560 340"
       role="img"
       aria-label="A daily voice weight check-in plots on a trend line that climbs and crosses the alert threshold; the breach flags amber and the care team is notified, placing an outreach call before hospitalization."
-      className={className}
+      className="hf-svg"
       fill="none"
     >
       <style>{`
@@ -100,20 +108,25 @@ ${points
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+      {/* Outer .hf-dot wrapper exists so the hover lift can scale the point
+          WITHOUT fighting the running hf-pt-N / hf-breach keyframes on the
+          inner group — a live animation beats a plain hover declaration. */}
       {points.map(([x, y], i) => {
         const breach = y < THRESHOLD_Y
         return (
-          <g key={x} className={`hf-pt-${i}`}>
-            {breach && <circle className="hf-breach" cx={x} cy={y} r="5" fill="var(--warn)" opacity="0.25" />}
-            <circle
-              className={breach ? "hf-breach" : undefined}
-              cx={x}
-              cy={y}
-              r="5"
-              fill={breach ? "var(--warn)" : "var(--card)"}
-              stroke={breach ? "var(--warn)" : "var(--primary)"}
-              strokeWidth="2"
-            />
+          <g key={x} className={`hf-dot hf-dot-${i}`} style={{ transformOrigin: `${x}px ${y}px` }}>
+            <g className={`hf-pt-${i}`}>
+              {breach && <circle className="hf-breach" cx={x} cy={y} r="5" fill="var(--warn)" opacity="0.25" />}
+              <circle
+                className={breach ? "hf-breach" : undefined}
+                cx={x}
+                cy={y}
+                r="5"
+                fill={breach ? "var(--warn)" : "var(--card)"}
+                stroke={breach ? "var(--warn)" : "var(--primary)"}
+                strokeWidth="2"
+              />
+            </g>
           </g>
         )
       })}
@@ -137,5 +150,28 @@ ${points
         </text>
       </g>
     </svg>
+
+    {/* Hotspot + tooltip per point. Hover on pointer devices, focus on
+        tap/keyboard — the tap path is what makes this work on touch. */}
+    {points.map(([x, y], i) => {
+      const breach = y < THRESHOLD_Y
+      return (
+        <div
+          key={x}
+          className="hf-hotwrap"
+          style={{ left: `${(x / 560) * 100}%`, top: `${(y / 340) * 100}%` }}
+        >
+          <button type="button" className={`hf-hot hf-hot-${i}`}>
+            Day {i + 1}: {deltas[i]}
+            {breach ? ", above alert threshold" : ""}
+          </button>
+          <span className="hf-tip" role="tooltip">
+            <span className="hf-tip-day">Day {i + 1}</span>
+            <span className={`hf-tip-val ${breach ? "hf-tip-breach" : ""}`}>{deltas[i]}</span>
+          </span>
+        </div>
+      )
+    })}
+    </div>
   )
 }

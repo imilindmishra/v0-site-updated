@@ -76,7 +76,7 @@ export default function DementiaPage() {
             </p>
           </Reveal>
 
-          <Reveal delay={100} className="mx-auto mt-12 max-w-3xl">
+          <Reveal delay={100} className="reveal-3d mx-auto mt-12 max-w-3xl">
             <GraphicScroller minWidth={620}>
               <DementiaLoop className="h-auto w-full" />
             </GraphicScroller>
@@ -126,7 +126,7 @@ export default function DementiaPage() {
 
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {voiceScenarios.map((scenario, i) => (
-              <Reveal key={scenario.title} delay={i * 100} className="hover-lift rounded-2xl border border-border bg-card p-8">
+              <Reveal key={scenario.title} delay={i * 100} className="hover-lift-3d rounded-2xl border border-border bg-card p-8">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted">
                   <scenario.icon className="h-6 w-6 text-primary" aria-hidden="true" />
                 </div>
@@ -154,7 +154,7 @@ export default function DementiaPage() {
 
           <div className="mx-auto mt-12 grid max-w-4xl gap-8 md:grid-cols-2">
             {integrations.map((feature, i) => (
-              <Reveal key={feature.title} delay={i * 100} className="hover-lift flex gap-4 rounded-2xl border border-border bg-card p-6">
+              <Reveal key={feature.title} delay={i * 100} className="hover-lift-3d flex gap-4 rounded-2xl border border-border bg-card p-6">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
                   <feature.icon className="h-5 w-5 text-primary" aria-hidden="true" />
                 </div>

@@ -150,7 +150,908 @@
   .reveal-mask.is-revealed {
     mask-position: 0 0;
   }
+
+  /* ---------------------------------------------------------------------
+     2.5D reinterpretation (R1 Tier B / R2 / R3).
+     These are ADDITIVE modifier classes. `.reveal`, `.reveal-words`,
+     `.hover-lift` and `.stack-card` above are deliberately untouched so the
+     ~270 out-of-scope animated elements keep their exact current behaviour.
+     Everything here is inside the no-preference gate, so `reduce` sees none
+     of it. transform/opacity only.
+     --------------------------------------------------------------------- */
+
+  /* R1 Tier B — same hover-lift idea, rendered as depth instead of
+     displacement. Self-contained `perspective()` in the transform, so no
+     parent needs a perspective context and no sibling is affected.
+     Used INSTEAD of `.hover-lift` on feature/scenario/team cards.
+     Compliance, partners and stat cards keep plain `.hover-lift`. */
+  .hover-lift-3d {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  .hover-lift-3d:hover {
+    transform: perspective(800px) translateZ(10px) rotateX(2deg);
+    box-shadow: 0 8px 24px -8px rgb(22 104 199 / 0.18);
+  }
+
+  /* R2 — scroll-reveal with depth, for discrete objects only (graphic
+     containers, chart cards, team grid, image blocks). Pairs with `.reveal`,
+     which still supplies the opacity and the 450ms timing; this only
+     overrides the transform. Never applied to text or heading blocks. */
+  .reveal.reveal-3d {
+    transform: perspective(1000px) translateZ(-40px) rotateX(6deg);
+    transform-origin: center bottom;
+  }
+  .reveal.reveal-3d.is-revealed {
+    transform: perspective(1000px) translateZ(0) rotateX(0deg);
+  }
+
+  /* R3 — multi-layer parallax, About team cards only (6). `preserve-3d` is
+     what lets the avatar and text sit at different depths; it is scoped to
+     these cards precisely because it adds a stacking context per card. */
+  .team-card-3d {
+    transform-style: preserve-3d;
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  .team-card-3d:hover {
+    transform: perspective(900px) rotateX(3deg) translateZ(6px);
+    box-shadow: 0 8px 24px -8px rgb(22 104 199 / 0.18);
+  }
+  .team-card-3d .team-layer-avatar,
+  .team-card-3d .team-layer-meta {
+    transition: transform 200ms ease-out;
+  }
+  .team-card-3d:hover .team-layer-avatar {
+    transform: translateZ(24px);
+  }
+  .team-card-3d:hover .team-layer-meta {
+    transform: translateZ(8px);
+  }
+
+  /* Item 1 — DementiaLoop depth layers. The 3D lives on the <svg> elements
+     themselves; inside a single SVG tree translateZ is a verified no-op.
+     Each layer is counter-scaled by p/(p-z) so raising it does not enlarge it
+     out of alignment with the labels on the base layer (perspective 900px:
+     z18 -> 1.0204, z34 -> 1.0393). Depth is then carried by the directional
+     drop-shadow, which is what actually reads as elevation on a flat,
+     front-facing diagram. */
+  .dm-l-icons {
+    transform: translateZ(18px) scale(0.98);
+    filter: drop-shadow(0 3px 4px rgb(16 15 15 / 0.10));
+  }
+  .dm-l-badges {
+    transform: translateZ(34px) scale(0.9622);
+    filter: drop-shadow(0 5px 7px rgb(16 15 15 / 0.14));
+  }
 }
+
+/* ---------------------------------------------------------------------------
+   Item 1 — DementiaLoop scene (layout + hover/focus wiring).
+   Layout is unconditional so reduced-motion users still get the diagram; only
+   the depth offsets above are gated.
+   --------------------------------------------------------------------------- */
+.dm-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 560 / 300;
+  perspective: 900px;
+}
+.dm-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* transparent hit targets — text is for assistive tech only */
+.dm-hot {
+  position: absolute;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+  border-radius: 12px;
+}
+.dm-hot:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.dm-hot-1 { left: 12.9%; top: 27.3%; width: 13.6%; height: 41%; }
+.dm-hot-2 { left: 40.4%; top: 31.3%; width: 19.3%; height: 37%; }
+.dm-hot-3 { left: 74.6%; top: 29.3%; width: 11.4%; height: 39%; }
+
+.dm-node,
+.dm-lbl,
+.dm-conn {
+  transition: opacity 200ms ease-out;
+}
+
+/* dim everything while a station is active… */
+.dm-scene:has(.dm-hot:hover) .dm-node,
+.dm-scene:has(.dm-hot:hover) .dm-lbl,
+.dm-scene:has(.dm-hot:hover) .dm-conn,
+.dm-scene:has(.dm-hot:focus-visible) .dm-node,
+.dm-scene:has(.dm-hot:focus-visible) .dm-lbl,
+.dm-scene:has(.dm-hot:focus-visible) .dm-conn {
+  opacity: 0.28;
+}
+
+/* …then restore the active station and the connector into it */
+.dm-scene:has(.dm-hot-1:hover) .dm-node-1,
+.dm-scene:has(.dm-hot-1:hover) .dm-lbl-1,
+.dm-scene:has(.dm-hot-1:hover) .dm-conn-a,
+.dm-scene:has(.dm-hot-1:focus-visible) .dm-node-1,
+.dm-scene:has(.dm-hot-1:focus-visible) .dm-lbl-1,
+.dm-scene:has(.dm-hot-1:focus-visible) .dm-conn-a,
+.dm-scene:has(.dm-hot-2:hover) .dm-node-2,
+.dm-scene:has(.dm-hot-2:hover) .dm-lbl-2,
+.dm-scene:has(.dm-hot-2:hover) .dm-conn-a,
+.dm-scene:has(.dm-hot-2:hover) .dm-conn-b,
+.dm-scene:has(.dm-hot-2:focus-visible) .dm-node-2,
+.dm-scene:has(.dm-hot-2:focus-visible) .dm-lbl-2,
+.dm-scene:has(.dm-hot-2:focus-visible) .dm-conn-a,
+.dm-scene:has(.dm-hot-2:focus-visible) .dm-conn-b,
+.dm-scene:has(.dm-hot-3:hover) .dm-node-3,
+.dm-scene:has(.dm-hot-3:hover) .dm-lbl-3,
+.dm-scene:has(.dm-hot-3:hover) .dm-conn-b,
+.dm-scene:has(.dm-hot-3:focus-visible) .dm-node-3,
+.dm-scene:has(.dm-hot-3:focus-visible) .dm-lbl-3,
+.dm-scene:has(.dm-hot-3:focus-visible) .dm-conn-b {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   Item 2 — HeartFailureLoop. DATA-ENCODING: the <polyline class="hf-line">,
+   the threshold line and the point coordinates carry the value, so nothing
+   here applies perspective/rotate to them or to any ancestor. Depth is
+   directional drop-shadow only; the hover lift is a scale on a wrapper <g>.
+   --------------------------------------------------------------------------- */
+.hf-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 560 / 340;
+}
+.hf-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* elevation cues — applied to the raised furniture, never to the trend line */
+.hf-callout,
+.hf-alert {
+  filter: drop-shadow(0 4px 6px rgb(16 15 15 / 0.13));
+}
+.hf-dot {
+  filter: drop-shadow(0 2px 2px rgb(16 15 15 / 0.16));
+}
+
+.hf-hotwrap {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.hf-hot {
+  position: absolute;
+  left: -18px;
+  top: -18px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+}
+.hf-hot:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 1px;
+}
+
+.hf-tip {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 74px;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 6px 10px;
+  box-shadow: 0 6px 16px -6px rgb(16 15 15 / 0.28);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.hf-tip-day {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.hf-tip-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.hf-tip-breach {
+  color: var(--warn);
+}
+.hf-hot:hover ~ .hf-tip,
+.hf-hot:focus-visible ~ .hf-tip {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* NO transform-box here: the inline transform-origin is in SVG user units,
+     and fill-box would re-resolve it against each dot's own bounding box,
+     flinging the scaled point across the chart. view-box is the SVG default. */
+  .hf-dot {
+    transition: transform 180ms ease-out, filter 180ms ease-out;
+  }
+  .hf-tip {
+    transition: opacity 160ms ease-out;
+  }
+  /* the point lifts toward the viewer; the line path is never touched */
+  .hf-scene:has(.hf-hot-0:hover) .hf-dot-0,
+  .hf-scene:has(.hf-hot-0:focus-visible) .hf-dot-0,
+  .hf-scene:has(.hf-hot-1:hover) .hf-dot-1,
+  .hf-scene:has(.hf-hot-1:focus-visible) .hf-dot-1,
+  .hf-scene:has(.hf-hot-2:hover) .hf-dot-2,
+  .hf-scene:has(.hf-hot-2:focus-visible) .hf-dot-2,
+  .hf-scene:has(.hf-hot-3:hover) .hf-dot-3,
+  .hf-scene:has(.hf-hot-3:focus-visible) .hf-dot-3,
+  .hf-scene:has(.hf-hot-4:hover) .hf-dot-4,
+  .hf-scene:has(.hf-hot-4:focus-visible) .hf-dot-4,
+  .hf-scene:has(.hf-hot-5:hover) .hf-dot-5,
+  .hf-scene:has(.hf-hot-5:focus-visible) .hf-dot-5 {
+    transform: scale(1.55);
+    filter: drop-shadow(0 5px 6px rgb(16 15 15 / 0.3));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Item 3 — GapChart. DATA-ENCODING: `.gc-fill`'s height IS the value, so it
+   never receives a transform here. Depth = directional drop-shadow; the hover
+   pairs the fill with its ghost reference so the gap reads as one comparison.
+   --------------------------------------------------------------------------- */
+.gc-scene {
+  position: relative;
+}
+.gc-bracket {
+  filter: drop-shadow(0 3px 4px rgb(16 15 15 / 0.12));
+}
+.gc-hot {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 0;
+  background: none;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+}
+.gc-hot:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -4px;
+  border-radius: 14px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gc-ref,
+  .gc-bracket {
+    transition: stroke-opacity 200ms ease-out, filter 200ms ease-out;
+  }
+  /* both ends of the comparison light up together */
+  .gc-scene:has(.gc-hot:hover) .gc-ref,
+  .gc-scene:has(.gc-hot:focus-visible) .gc-ref {
+    stroke-opacity: 1;
+  }
+  .gc-scene:has(.gc-hot:hover) .gc-bracket,
+  .gc-scene:has(.gc-hot:focus-visible) .gc-bracket {
+    filter: drop-shadow(0 5px 7px rgb(0 133 13 / 0.32));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Item 4 — AnsweredCall. Illustrative, so genuine layered 3D. Layout is
+   unconditional; depth offsets and the idle float are gated below.
+   --------------------------------------------------------------------------- */
+.va-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 480 / 420;
+  perspective: 900px;
+}
+.va-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.va-hot {
+  position: absolute;
+  z-index: 2;
+  left: 37.5%;
+  top: 27.62%;
+  width: 25%;
+  height: 28.57%;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+}
+.va-hot:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* the whole-card drift used to live on a <g class="va-float"> inside the
+     single SVG; with three sibling layers it belongs on the container so all
+     three stay in register */
+  .va-scene {
+    animation: va-drift 6s ease-in-out infinite;
+  }
+  /* counter-scaled by p/(p-z) at perspective 900 so raising a layer does not
+     enlarge it out of alignment: z16 -> 1.0181, z30 -> 1.0345 */
+  .va-l-wave {
+    transform: translateZ(16px) scale(0.98222);
+    filter: drop-shadow(0 4px 6px rgb(16 15 15 / 0.10));
+  }
+  .va-l-chat {
+    transform: translateZ(30px) scale(0.96667);
+    filter: drop-shadow(0 6px 9px rgb(16 15 15 / 0.13));
+  }
+  .va-wavegroup {
+    transition: transform 260ms ease-out, filter 260ms ease-out;
+  }
+  /* restrained: a small amplitude lift, not a toy bounce */
+  .va-scene:has(.va-hot:hover) .va-wavegroup,
+  .va-scene:has(.va-hot:focus-visible) .va-wavegroup {
+    transform: scale(1.04);
+    filter: drop-shadow(0 4px 10px rgb(30 127 230 / 0.28));
+  }
+}
+
+@keyframes va-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* ---------------------------------------------------------------------------
+   Item 5 — EhrFlow. Illustrative, so genuine layered 3D. Hovering a node keeps
+   it and the step that leads into it lit, and dims the rest.
+   --------------------------------------------------------------------------- */
+.ef-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 640 / 230;
+  perspective: 900px;
+}
+.ef-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.ef-hot {
+  position: absolute;
+  z-index: 2;
+  top: 26.09%;
+  height: 27.83%;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: none;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+}
+.ef-hot:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.ef-node,
+.ef-step,
+.ef-path {
+  transition: opacity 200ms ease-out;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* counter-scaled: z18 -> 1.0204, z32 -> 1.0369 at perspective 900 */
+  .ef-l-nodes {
+    transform: translateZ(18px) scale(0.98);
+    filter: drop-shadow(0 4px 5px rgb(16 15 15 / 0.11));
+  }
+  .ef-l-pulse {
+    transform: translateZ(32px) scale(0.96444);
+  }
+
+  /* dim everything while a node is active… */
+  .ef-scene:has(.ef-hot:hover) .ef-node,
+  .ef-scene:has(.ef-hot:hover) .ef-step,
+  .ef-scene:has(.ef-hot:hover) .ef-path,
+  .ef-scene:has(.ef-hot:focus-visible) .ef-node,
+  .ef-scene:has(.ef-hot:focus-visible) .ef-step,
+  .ef-scene:has(.ef-hot:focus-visible) .ef-path {
+    opacity: 0.26;
+  }
+
+  /* …then restore the active node and the step that leads INTO it.
+     Steps sit between nodes, so node N pairs with step N-1; node 0 is the
+     entry point and has no incoming step. */
+  .ef-scene:has(.ef-hot-0:hover) .ef-node-0,
+  .ef-scene:has(.ef-hot-0:focus-visible) .ef-node-0,
+  .ef-scene:has(.ef-hot-1:hover) .ef-node-1,
+  .ef-scene:has(.ef-hot-1:hover) .ef-step-0,
+  .ef-scene:has(.ef-hot-1:focus-visible) .ef-node-1,
+  .ef-scene:has(.ef-hot-1:focus-visible) .ef-step-0,
+  .ef-scene:has(.ef-hot-2:hover) .ef-node-2,
+  .ef-scene:has(.ef-hot-2:hover) .ef-step-1,
+  .ef-scene:has(.ef-hot-2:focus-visible) .ef-node-2,
+  .ef-scene:has(.ef-hot-2:focus-visible) .ef-step-1,
+  .ef-scene:has(.ef-hot-3:hover) .ef-node-3,
+  .ef-scene:has(.ef-hot-3:hover) .ef-step-2,
+  .ef-scene:has(.ef-hot-3:focus-visible) .ef-node-3,
+  .ef-scene:has(.ef-hot-3:focus-visible) .ef-step-2 {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Item 6 — RingCompare. DATA-ENCODING: the arc length (stroke-dashoffset) IS
+   the value, so neither ring receives a transform here and no ancestor gets
+   perspective/rotate. Depth is directional drop-shadow only.
+   --------------------------------------------------------------------------- */
+.rc-scene {
+  position: relative;
+}
+.rc-inner,
+.rc-outer {
+  filter: drop-shadow(0 2px 3px rgb(16 15 15 / 0.16));
+}
+.rc-hot {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 0;
+  background: none;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+}
+.rc-hot:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -4px;
+  border-radius: 14px;
+}
+/* reserved in flow at all times — revealing it must not shift the legend */
+.rc-raw {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rc-raw {
+    transition: opacity 200ms ease-out;
+  }
+  .rc-inner,
+  .rc-outer {
+    transition: filter 200ms ease-out;
+  }
+  .rc-scene:has(.rc-hot:hover) .rc-raw,
+  .rc-scene:has(.rc-hot:focus-visible) .rc-raw {
+    opacity: 1;
+  }
+  .rc-scene:has(.rc-hot:hover) .rc-outer,
+  .rc-scene:has(.rc-hot:focus-visible) .rc-outer {
+    filter: drop-shadow(0 4px 6px rgb(22 104 199 / 0.34));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   OmniAI hero — two phones crossing on the section's black field.
+
+   Reuses AiCallPhone's .ph-frame / .ph-screen / .ph-notch / .ph-antenna /
+   .ph-btn verbatim; --ph-* are redeclared here so the frames size for this
+   scene without inheriting .ph-scene's own layout.
+
+   NOTE on perspective: `perspective` as a PROPERTY only applies to an
+   element's direct children, and .tp-tilt is a grandchild of .tp-scene — so
+   the previous version's rotateY was rendering with no foreshortening at all
+   (a flat horizontal squash). The perspective() transform FUNCTION applies to
+   the element carrying it regardless of ancestry, so the tilt uses that.
+   --------------------------------------------------------------------------- */
+.tp-scene {
+  /* MOBILE FIRST, and mobile is a deliberately different composition, not the
+     same one scaled down. A crossing pose costs horizontal room twice over —
+     once for the second phone, once for the bbox that rotateZ adds to a very
+     tall element — and a 390px column has none to spare. So below 640px the
+     front (chart) phone stays dominant and near-upright, the back (call) phone
+     shrinks harder and tucks further behind it, and the chart's own type steps
+     UP relative to the phone so the entry that matters stays over 12px. */
+  --ph-w: 210px;
+  --tp-back: 0.72;
+  --tp-lean-back: -6deg;
+  --tp-lean-front: -3deg;
+  --tp-left-x: -0.95;
+  --tp-left-y: -0.6;
+  --tp-right-x: -0.29;
+  --tp-right-y: -1.1;
+  --tp-h: 2.42;
+  /* trail endpoints: the waveform's centre and the new entry's icon, both
+     MEASURED as offsets from the scene centre in --ph-w units. They differ per
+     breakpoint because the composition does — re-measure if margins change. */
+  --tp-t0x: -0.35;
+  --tp-t0y: -0.08;
+  --tp-t1x: -0.11;
+  --tp-t1y: -0.5;
+
+  --ph-r: calc(var(--ph-w) * 0.185);
+  --ph-bez: calc(var(--ph-w) * 0.035);
+  --tp-persp: 1000px;
+  --tp-mx: 0;
+  --tp-my: 0;
+  position: relative;
+  width: 100%;
+  height: calc(var(--ph-w) * var(--tp-h));
+}
+@media (min-width: 640px) {
+  .tp-scene {
+    --ph-w: 246px;
+    --tp-back: 0.86;
+    --tp-lean-back: -13deg;
+    --tp-lean-front: -7deg;
+    --tp-left-x: -1;
+    --tp-left-y: -0.75;
+    --tp-right-x: -0.04;
+    --tp-right-y: -1.17;
+    --tp-h: 2.66;
+    --tp-t0x: -0.52;
+    --tp-t0y: -0.08;
+    --tp-t1x: 0.17;
+    --tp-t1y: -0.57;
+  }
+}
+@media (min-width: 1024px) {
+  .tp-scene {
+    --ph-w: 258px;
+  }
+}
+
+/* Crossing composition. The front phone sits right and high, the back phone
+   left and low, and they overlap — margins are in --ph-w units so the whole
+   group scales with the phone rather than with the viewport. */
+.tp-phone {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--ph-w);
+}
+.tp-left {
+  z-index: 1;
+  margin-left: calc(var(--ph-w) * var(--tp-left-x));
+  margin-top: calc(var(--ph-w) * var(--tp-left-y));
+  transform: scale(var(--tp-back));
+  /* scaling about the inner-top corner keeps the overlap point put */
+  transform-origin: 100% 0%;
+}
+.tp-right {
+  z-index: 2;
+  margin-left: calc(var(--ph-w) * var(--tp-right-x));
+  margin-top: calc(var(--ph-w) * var(--tp-right-y));
+}
+
+/* One leaning back-left, one forward-right. Parallax sensitivity differs per
+   phone so they read as two objects rather than one rigid group. */
+.tp-left .tp-tilt {
+  transform: perspective(var(--tp-persp)) rotateY(calc(15deg + var(--tp-mx) * 13deg))
+    rotateX(calc(5deg + var(--tp-my) * -6deg)) rotateZ(var(--tp-lean-back));
+}
+.tp-right .tp-tilt {
+  transform: perspective(var(--tp-persp)) rotateY(calc(-11deg + var(--tp-mx) * 8deg))
+    rotateX(calc(3deg + var(--tp-my) * -4deg)) rotateZ(var(--tp-lean-front));
+}
+
+/* Shadows on a black field only read where they land on the OTHER phone, so
+   the front phone's is biased down-left, into the back phone. Lengths are
+   --ph-w multiples; the largest blur is 0.34 of a phone's width. */
+.tp-scene .ph-frame {
+  box-shadow:
+    /* the three inset rim highlights are AiCallPhone's, kept verbatim */
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px rgba(60, 60, 70, 0.45),
+    0 calc(var(--ph-w) * 0.02) calc(var(--ph-w) * 0.05) rgba(0, 0, 0, 0.8);
+}
+.tp-right .ph-frame {
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px rgba(60, 60, 70, 0.45),
+    calc(var(--ph-w) * -0.03) calc(var(--ph-w) * 0.03) calc(var(--ph-w) * 0.07) rgba(0, 0, 0, 0.9),
+    calc(var(--ph-w) * -0.1) calc(var(--ph-w) * 0.09) calc(var(--ph-w) * 0.22) rgba(0, 0, 0, 0.8),
+    calc(var(--ph-w) * -0.18) calc(var(--ph-w) * 0.16) calc(var(--ph-w) * 0.34) rgba(0, 0, 0, 0.6);
+}
+
+/* ---- left phone: the live call (AiCallPhone's screen, unchanged) ---- */
+.tp-content {
+  padding: calc(var(--ph-w) * 0.17) calc(var(--ph-w) * 0.07) calc(var(--ph-w) * 0.04);
+}
+.tp-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--ph-w) * 0.03);
+  margin-top: calc(var(--ph-w) * 0.03);
+  font-size: calc(var(--ph-w) * 0.058);
+  color: #8fd39a;
+}
+.tp-status-dot {
+  width: calc(var(--ph-w) * 0.035);
+  height: calc(var(--ph-w) * 0.035);
+  border-radius: 999px;
+  background: #34c759;
+}
+.tp-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--ph-w) * 0.018);
+  height: calc(var(--ph-w) * 0.2);
+  margin-top: calc(var(--ph-w) * 0.08);
+}
+.tp-wave-bar {
+  width: calc(var(--ph-w) * 0.022);
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(to top, var(--wave-from), var(--wave-to));
+  /* the static amplitude IS the reduced-motion state */
+  transform: scaleY(var(--amp));
+}
+.tp-controls {
+  margin-top: auto;
+  gap: calc(var(--ph-w) * 0.05) calc(var(--ph-w) * 0.04);
+}
+
+/* ---- right phone: the chart ----
+   Scoped through .tp-scene on purpose: .ph-screen is declared further down this
+   file, so a bare .tp-screen-light would lose to it at equal specificity. */
+.tp-scene .tp-screen-light {
+  background: #fff;
+  box-shadow:
+    0 0 0 1.5px #15151a,
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+/* .ph-screen::after is a dark vignette — wrong on a white screen */
+.tp-scene .tp-screen-light::after {
+  display: none;
+}
+
+.tp-chart {
+  padding: calc(var(--ph-w) * 0.145) calc(var(--ph-w) * 0.055) calc(var(--ph-w) * 0.03);
+}
+.tp-chart-head {
+  padding-bottom: calc(var(--ph-w) * 0.045);
+  border-bottom: 1px solid #e9e7e7;
+}
+.tp-chart-name {
+  font-size: calc(var(--ph-w) * 0.072);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #100f0f;
+}
+.tp-chart-sub {
+  margin-top: calc(var(--ph-w) * 0.012);
+  font-size: calc(var(--ph-w) * 0.042);
+  color: #1668c7;
+}
+
+.tp-entries {
+  margin-top: calc(var(--ph-w) * 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--ph-w) * 0.055);
+  list-style: none;
+}
+.tp-entry {
+  display: flex;
+  gap: calc(var(--ph-w) * 0.035);
+  border-radius: calc(var(--ph-w) * 0.035);
+  padding: calc(var(--ph-w) * 0.042) calc(var(--ph-w) * 0.032);
+}
+.tp-entry-icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--ph-w) * 0.082);
+  height: calc(var(--ph-w) * 0.082);
+  border-radius: calc(var(--ph-w) * 0.022);
+  background: #eff5fe;
+  color: #7f8794;
+}
+.tp-entry-icon svg {
+  width: 62%;
+  height: 62%;
+}
+.tp-entry-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+.tp-entry-time {
+  font-size: calc(var(--ph-w) * 0.036);
+  letter-spacing: 0.02em;
+  color: #9aa0a9;
+}
+.tp-entry-desc {
+  margin-top: calc(var(--ph-w) * 0.006);
+  font-size: calc(var(--ph-w) * 0.046);
+  line-height: 1.3;
+  color: #6b7280;
+}
+/* older = further down = quieter. These are product-shot context, not copy the
+   reader has to parse, so they step below body contrast deliberately. */
+.tp-entry:nth-child(3) .tp-entry-desc,
+.tp-entry:nth-child(3) .tp-entry-time {
+  color: #9aa0a9;
+}
+.tp-entry:nth-child(4) .tp-entry-desc,
+.tp-entry:nth-child(4) .tp-entry-time {
+  color: #b4b9c1;
+}
+
+/* the entry Omni AI just wrote */
+.tp-entry-new {
+  background: #e4ffe3;
+  box-shadow: inset 0 0 0 1px rgba(0, 133, 13, 0.18);
+}
+.tp-entry-new .tp-entry-icon {
+  background: #00850d;
+  color: #fff;
+}
+.tp-entry-new .tp-entry-time {
+  color: #00850d;
+  font-weight: 600;
+}
+.tp-entry-new .tp-entry-desc {
+  /* the one line in this screen the reader must actually read — kept over 12px
+     at every breakpoint (0.058 x 210 = 12.2 on mobile, 0.052 x 258 = 13.4 on
+     desktop). The rest of the chart is product-shot context. */
+  font-size: calc(var(--ph-w) * 0.058);
+  font-weight: 600;
+  color: #100f0f;
+}
+@media (min-width: 640px) {
+  .tp-entry-new .tp-entry-desc {
+    font-size: calc(var(--ph-w) * 0.052);
+  }
+}
+/* same tick-in-a-filled-circle + success-coloured label as AnsweredCall */
+.tp-fhir {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--ph-w) * 0.022);
+  margin-top: calc(var(--ph-w) * 0.024);
+  font-size: calc(var(--ph-w) * 0.042);
+  font-weight: 500;
+  color: #00850d;
+}
+.tp-tick {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--ph-w) * 0.05);
+  height: calc(var(--ph-w) * 0.05);
+  border-radius: 999px;
+  background: #00850d;
+  color: #fff;
+}
+.tp-tick svg {
+  width: 68%;
+  height: 68%;
+}
+.tp-home-dark {
+  /* auto pins it to the bottom of the screen, so the chart list ends where it
+     ends instead of the indicator riding up under it */
+  margin-top: auto;
+  background: rgba(16, 15, 15, 0.28);
+}
+
+/* Causality: one dot leaving the waveform and arriving at the new chart entry.
+   Offsets are --ph-w multiples measured off the two anchor points. */
+.tp-trail {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  width: calc(var(--ph-w) * 0.042);
+  height: calc(var(--ph-w) * 0.042);
+  margin: calc(var(--ph-w) * -0.021) 0 0 calc(var(--ph-w) * -0.021);
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 calc(var(--ph-w) * 0.06) calc(var(--ph-w) * 0.012) rgb(30 127 230 / 0.75);
+  /* hidden unless animated, so reduced motion never shows a stray dot */
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tp-tilt {
+    transition: transform 300ms ease-out;
+  }
+  /* desynced idle floats */
+  .tp-left .tp-float {
+    animation: tp-float-a 5.2s ease-in-out infinite alternate;
+  }
+  .tp-right .tp-float {
+    animation: tp-float-b 4.3s ease-in-out -1.6s infinite alternate;
+  }
+  .tp-wave-bar {
+    animation: tp-speak 0.95s ease-in-out infinite alternate;
+  }
+  .tp-trail {
+    animation: tp-trail 3.6s var(--ease-out) infinite;
+  }
+}
+
+@keyframes tp-float-a {
+  from { transform: translateY(-6px); }
+  to { transform: translateY(6px); }
+}
+@keyframes tp-float-b {
+  from { transform: translateY(5px); }
+  to { transform: translateY(-5px); }
+}
+@keyframes tp-speak {
+  from { transform: scaleY(calc(var(--amp) * 0.34)); }
+  to { transform: scaleY(var(--amp)); }
+}
+/* Waveform → the new chart entry's icon, arcing above the straight line and
+   absorbed on arrival. Both endpoints come from the measured --tp-t0 and
+   --tp-t1 pairs, which differ per breakpoint; the midpoint is derived from
+   them, so the arc can never drift away from the two anchors. */
+@keyframes tp-trail {
+  0% {
+    opacity: 0;
+    transform: translate(calc(var(--ph-w) * var(--tp-t0x)), calc(var(--ph-w) * var(--tp-t0y))) scale(0.6);
+  }
+  12% {
+    opacity: 1;
+    transform: translate(calc(var(--ph-w) * var(--tp-t0x)), calc(var(--ph-w) * var(--tp-t0y))) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(
+        calc(var(--ph-w) * (var(--tp-t0x) + var(--tp-t1x)) / 2),
+        calc(var(--ph-w) * ((var(--tp-t0y) + var(--tp-t1y)) / 2 - 0.07))
+      )
+      scale(1);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(calc(var(--ph-w) * var(--tp-t1x)), calc(var(--ph-w) * var(--tp-t1y))) scale(1);
+  }
+  80%, 100% {
+    opacity: 0;
+    transform: translate(calc(var(--ph-w) * var(--tp-t1x)), calc(var(--ph-w) * var(--tp-t1y))) scale(1.9);
+  }
+}
+
 
 @keyframes float-drift {
   0%, 100% { transform: translateY(0); }

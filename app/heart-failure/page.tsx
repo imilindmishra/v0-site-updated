@@ -106,6 +106,8 @@ export default function HeartFailurePage() {
                 ))}
               </ul>
             </Reveal>
+            {/* NOT reveal-3d: this graphic is data-encoding, and reveal-3d's
+                entry transform rotates the trend line 6deg mid-reveal. */}
             <Reveal delay={120} className="min-w-0">
               <GraphicScroller minWidth={560}>
                 <HeartFailureLoop className="h-auto w-full" />
@@ -129,7 +131,7 @@ export default function HeartFailurePage() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {scenarios.map((s, i) => (
               <Reveal key={s.title} delay={i * 80}>
-                <div className="hover-lift h-full rounded-2xl border border-border bg-card p-8">
+                <div className="hover-lift-3d h-full rounded-2xl border border-border bg-card p-8">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted">
                     <s.icon className="h-6 w-6 text-primary" aria-hidden />
                   </div>
@@ -199,6 +201,7 @@ export default function HeartFailurePage() {
             </RevealText>
             <p className="mt-4 text-sm text-muted-foreground">Based on pilot study projections</p>
           </Reveal>
+          {/* NOT reveal-3d — GapChart is data-encoding (bar fill height). */}
           <Reveal delay={120} className="mx-auto mt-12 max-w-3xl">
             <GapChart
               baseline={100}

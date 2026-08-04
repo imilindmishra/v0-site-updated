@@ -3,7 +3,7 @@ import { PhoneCall, CalendarClock, PhoneForwarded, Voicemail } from "lucide-reac
 import { FeatureList } from "@/components/feature-list"
 import { Reveal } from "@/components/reveal"
 import { RevealText } from "@/components/reveal-text"
-import { AnsweredCall } from "@/components/graphics/AnsweredCall"
+import { OmniAiHero } from "@/components/omniai/omniai-hero"
 import { EhrFlow } from "@/components/graphics/EhrFlow"
 import { GraphicScroller } from "@/components/graphic-scroller"
 import { LiveStats } from "@/components/omniai/live-stats"
@@ -57,17 +57,18 @@ const transcriptPoints = [
 export default function OmniAIPage() {
   return (
     <div className="flex flex-col">
-      {/* Hero */}
-      <section className="py-20 md:py-28">
+      {/* Hero — the one dark surface on this page. The phones are shot on the
+          section's own black field, not on a shape sitting over the blue. */}
+      <section className="bg-ink py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
               Phone Call Management
             </p>
-            <RevealText as="h1" className="mt-4 text-balance text-4xl tracking-tight text-foreground sm:text-5xl">
-              Never Miss a Patient Call with <span className="text-primary">OmniAI</span>
+            <RevealText as="h1" className="mt-4 text-balance text-4xl tracking-tight text-card sm:text-5xl">
+              Never Miss a Patient Call with <span className="text-accent">OmniAI</span>
             </RevealText>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-6 text-lg leading-relaxed text-card/70">
               OmniAI is the AI voice agent that manages your clinic&apos;s entire phone line. It
               answers, schedules, triages, and documents every call directly in your EHR, so your
               front desk can focus on the patients in the room.
@@ -80,9 +81,7 @@ export default function OmniAIPage() {
           </Reveal>
 
           <Reveal delay={120} className="mx-auto mt-14 max-w-3xl">
-            <GraphicScroller minWidth={540}>
-              <AnsweredCall className="h-auto w-full" />
-            </GraphicScroller>
+            <OmniAiHero />
           </Reveal>
         </div>
       </section>
@@ -121,7 +120,7 @@ export default function OmniAIPage() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {scenarios.map((s, i) => (
               <Reveal key={s.title} delay={i * 80}>
-                <div className="hover-lift h-full rounded-2xl border border-border bg-card p-8">
+                <div className="hover-lift-3d h-full rounded-2xl border border-border bg-card p-8">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted">
                     <s.icon className="h-6 w-6 text-primary" aria-hidden />
                   </div>
@@ -163,7 +162,7 @@ export default function OmniAIPage() {
                 ))}
               </ul>
             </Reveal>
-            <Reveal delay={120} className="min-w-0">
+            <Reveal delay={120} className="reveal-3d min-w-0">
               <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
                 <GraphicScroller minWidth={591}>
                   <EhrFlow className="h-auto w-full" />
@@ -190,7 +189,7 @@ export default function OmniAIPage() {
                 answered and resolved, helping recover lost revenue and reducing the burnout that
                 drives staff turnover.
               </p>
-              <div className="hover-lift mt-8 flex items-start gap-4 rounded-2xl border border-border bg-card p-6">
+              <div className="hover-lift-3d mt-8 flex items-start gap-4 rounded-2xl border border-border bg-card p-6">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
                   <Voicemail className="h-5 w-5 text-primary" aria-hidden />
                 </div>
@@ -229,6 +228,7 @@ export default function OmniAIPage() {
             </RevealText>
             <p className="mt-4 text-sm text-muted-foreground">Based on pilot deployment projections</p>
           </Reveal>
+          {/* NOT reveal-3d — RingCompare is data-encoding (ring arc length). */}
           <Reveal delay={120} className="mx-auto mt-12 max-w-3xl">
             <RingCompare
               outer={{ label: "With OmniAI", value: 100, detail: "100 of 100 answered" }}

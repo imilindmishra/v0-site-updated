@@ -55,8 +55,12 @@ export function Header() {
     return () => document.removeEventListener("keydown", onKeyDown)
   }, [open])
 
+  // Fully opaque, deliberately. Any translucency lets whatever is scrolling
+  // underneath project onto the nav — first the hero's blue CTA pill as a
+  // legible silhouette, and now OmniAI's black hero section, which greys the
+  // whole bar out. Nothing can bleed through an opaque header.
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-card/70 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-card">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
           <LogoMark className="h-8 w-8 text-accent" />

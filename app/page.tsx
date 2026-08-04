@@ -147,7 +147,7 @@ export default function HomePage() {
               calls a day. With iClinic AI, every call gets through.
             </p>
           </Reveal>
-          <Reveal delay={120} className="mx-auto mt-4 max-w-[720px]">
+          <Reveal delay={120} className="reveal-3d mx-auto mt-4 max-w-[720px]">
             <GraphicScroller minWidth={720}>
               <VoicemailLeak className="h-auto w-full" />
             </GraphicScroller>
@@ -168,7 +168,7 @@ export default function HomePage() {
               chart over FHIR — no transcribing, no sticky notes, no follow-up data entry.
             </p>
           </Reveal>
-          <Reveal delay={120} className="mx-auto mt-6 max-w-[720px]">
+          <Reveal delay={120} className="reveal-3d mx-auto mt-6 max-w-[720px]">
             <GraphicScroller minWidth={720}>
               <EhrFlow className="h-auto w-full" />
             </GraphicScroller>
@@ -233,7 +233,7 @@ export default function HomePage() {
               const Icon = spec.icon
               return (
                 <Reveal key={spec.title} delay={(i % 3) * 80}>
-                  <div className="h-full rounded-2xl border border-border bg-card p-8 hover-lift">
+                  <div className="h-full rounded-2xl border border-border bg-card p-8 hover-lift-3d">
                     <Icon className="h-6 w-6 text-primary" aria-hidden />
                     <h3 className="mt-4 text-lg tracking-tight text-foreground">{spec.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -267,7 +267,7 @@ export default function HomePage() {
                 ))}
               </dl>
             </Reveal>
-            <Reveal delay={120} className="min-w-0">
+            <Reveal delay={120} className="reveal-3d min-w-0">
               <GraphicScroller minWidth={580}>
                 <SecurityShield className="h-auto w-full" />
               </GraphicScroller>

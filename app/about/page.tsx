@@ -128,9 +128,9 @@ export default function AboutPage() {
 
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {teamMembers.map((member, i) => (
-              <Reveal key={member.name} delay={i * 60}>
-                <div className="hover-lift h-full rounded-2xl border border-border bg-card p-6 text-center">
-                  <div className="relative mx-auto flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-4 border-primary/20 bg-muted">
+              <Reveal key={member.name} delay={i * 60} className="reveal-3d">
+                <div className="team-card-3d h-full rounded-2xl border border-border bg-card p-6 text-center">
+                  <div className="team-layer-avatar relative mx-auto flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-4 border-primary/20 bg-muted">
                     {member.image ? (
                       <Image src={member.image} alt={member.name} fill sizes="128px" className="object-cover" />
                     ) : (
@@ -139,9 +139,11 @@ export default function AboutPage() {
                       </span>
                     )}
                   </div>
-                  <h3 className="mt-6 text-lg font-semibold text-foreground">{member.name}</h3>
-                  <p className="mt-1 text-sm font-medium text-primary">{member.role}</p>
-                  {member.title && <p className="mt-1 text-xs text-muted-foreground">{member.title}</p>}
+                  <div className="team-layer-meta">
+                    <h3 className="mt-6 text-lg font-semibold text-foreground">{member.name}</h3>
+                    <p className="mt-1 text-sm font-medium text-primary">{member.role}</p>
+                    {member.title && <p className="mt-1 text-xs text-muted-foreground">{member.title}</p>}
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -172,7 +174,7 @@ export default function AboutPage() {
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {values.map((value, i) => (
               <Reveal key={value.title} delay={i * 80}>
-                <div className="hover-lift h-full rounded-2xl border border-border bg-card p-8 text-center">
+                <div className="hover-lift-3d h-full rounded-2xl border border-border bg-card p-8 text-center">
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-muted-3">
                     <value.icon aria-hidden="true" className="h-6 w-6 text-primary" />
                   </div>

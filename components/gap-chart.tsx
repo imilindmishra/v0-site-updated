@@ -75,7 +75,7 @@ export function GapChart({ baseline, value, total = 100, baselineLabel, avoidedL
   const pct = (ms: number) => (ms / T_TOTAL) * 100
 
   return (
-    <div ref={rootRef} className={`rounded-2xl border border-border bg-card p-6 sm:p-8 ${run ? "gc-run" : ""}`}>
+    <div ref={rootRef} className={`gc-scene rounded-2xl border border-border bg-card p-6 sm:p-8 ${run ? "gc-run" : ""}`}>
       <style>{`
         .gc-fill { transform: scaleY(${fillRatio}); transform-origin: bottom; transform-box: fill-box; }
         .gc-mask { transform: scaleX(0); transform-origin: right; transform-box: fill-box; }
@@ -141,6 +141,7 @@ export function GapChart({ baseline, value, total = 100, baselineLabel, avoidedL
 
           {/* reference baseline, revealed left-to-right by a receding cover mask */}
           <line
+            className="gc-ref"
             x1={BASELINE_X0}
             y1={TRACK_TOP}
             x2={BASELINE_X1}
@@ -177,6 +178,12 @@ export function GapChart({ baseline, value, total = 100, baselineLabel, avoidedL
             </text>
           </g>
         </svg>
+
+        {/* Pairs the fill and its ghost reference. Hover on pointer devices,
+            focus on tap/keyboard — without this the highlight is desktop-only. */}
+        <button type="button" className="gc-hot">
+          Show the {value} of {baseline} comparison
+        </button>
 
         <div className="w-full flex-1">
           {run ? (

@@ -66,7 +66,7 @@ export function RingCompare({
   const sign = delta >= 0 ? "+" : "−"
 
   return (
-    <div ref={ref} className={`rounded-2xl border border-border bg-card p-6 sm:p-8 ${run ? "rc-run" : ""}`}>
+    <div ref={ref} className={`rc-scene rounded-2xl border border-border bg-card p-6 sm:p-8 ${run ? "rc-run" : ""}`}>
       <style>{`
         @media (prefers-reduced-motion: no-preference) {
           .rc-inner { stroke-dashoffset: ${INNER_C}; transition: none; }
@@ -150,9 +150,21 @@ export function RingCompare({
               </span>
             </li>
           </ul>
+          {/* The arithmetic behind the centre delta. Always in the DOM at
+              opacity 0 so revealing it causes no layout shift. */}
+          <p className="rc-raw mt-3 text-sm font-medium tabular-nums text-foreground">
+            {outer.value} − {inner.value} = <span className="text-primary">{Math.abs(delta)}</span>{" "}
+            <span className="font-normal text-muted-foreground">{centerUnit}</span>
+          </p>
           <p className="mt-4 border-t border-border pt-3 text-xs text-muted-foreground">{note}</p>
         </div>
       </div>
+
+      {/* Reveals the raw numbers behind the ratio. Hover on pointer devices,
+          focus on tap/keyboard — without this it would be desktop-only. */}
+      <button type="button" className="rc-hot">
+        Show the raw numbers: {outer.value} versus {inner.value} of {total}
+      </button>
     </div>
   )
 }
