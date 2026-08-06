@@ -55,6 +55,50 @@ const sections = [
   },
 ]
 
+const smsSections = [
+  {
+    heading: "Program Name",
+    body: ["iClinic AI Patient Communication Program"],
+  },
+  {
+    heading: "Program Description",
+    body: [
+      "This SMS program is used to send appointment confirmations, reminders, follow-ups, and patient identity verification messages to patients of clinics using iClinic AI. Messages are triggered after a patient interacts with the clinic via phone call or registration. No marketing or promotional messages are sent through this program.",
+    ],
+  },
+  {
+    heading: "Message Frequency",
+    body: [
+      "Message frequency varies based on patient appointments and may include 1-2 messages per appointment for confirmation and verification purposes.",
+    ],
+  },
+  {
+    heading: "Message and Data Rates",
+    body: [
+      "Message and data rates may apply. Consult your mobile carrier for details on your messaging plan.",
+    ],
+  },
+  {
+    heading: "Opt-In",
+    body: [
+      "Patients opt in by providing their phone number during clinic registration or when calling the clinic, and by responding affirmatively when asked if they would like to receive SMS messages related to their care.",
+    ],
+  },
+  {
+    heading: "Opt-Out Instructions",
+    body: [
+      <>
+        Patients can opt out at any time by replying <strong>STOP</strong> to any message. For help, patients can reply{" "}
+        <strong>HELP</strong> or contact the clinic directly.
+      </>,
+    ],
+  },
+  {
+    heading: "Support Contact",
+    body: ["For questions about this SMS program, contact Info@imedclinic.ai."],
+  },
+]
+
 export default function TermsPage() {
   return (
     <div className="bg-background">
@@ -80,6 +124,24 @@ export default function TermsPage() {
               </div>
             </div>
           ))}
+
+          <div id="sms-program">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">SMS/Text Messaging Program Terms</h2>
+            <div className="mt-8 space-y-8">
+              {smsSections.map((section) => (
+                <div key={section.heading}>
+                  <h3 className="text-lg font-semibold tracking-tight text-foreground">{section.heading}</h3>
+                  <div className="mt-3 space-y-4">
+                    {section.body.map((paragraph, i) => (
+                      <p key={i} className="text-muted-foreground leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </div>
