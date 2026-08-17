@@ -32,7 +32,7 @@
   --ink: #100F0F;
   --chart-muted: #808080;
   --radius: 0.875rem;
-  --header-height: 4rem;
+  --header-height: 4.5rem;
 
   /* Shared motion tokens — reused across every animated graphic.
      Entering elements arrive on --ease-out and settle; exits use --ease-in;
@@ -99,6 +99,25 @@
   h5, h6 {
     @apply font-medium tracking-tight;
   }
+}
+
+/* Our readers are older patients and clinic staff, often on large displays.
+   Above 1280px there is room to spare, so the root grows and every rem-based
+   size — type, spacing, max-widths — grows with it. Media-query `rem` always
+   resolves against the initial 16px root, so Tailwind's own breakpoints are
+   unaffected by this. Graphics are container-relative (--ph-w, SVG viewBox
+   units) and scale independently.
+   The header gets its own step at lg, where the desktop nav appears and the
+   bar has to carry six links plus the CTA. card-stack reads --header-height
+   at runtime, so its sticky offsets follow both steps automatically. */
+@media (min-width: 1024px) {
+  :root { --header-height: 5rem; }
+}
+@media (min-width: 1280px) {
+  :root { font-size: 17px; }
+}
+@media (min-width: 1600px) {
+  :root { font-size: 18px; }
 }
 
 /* Reveal-on-scroll: elements start hidden, .is-revealed transitions them in.
@@ -537,7 +556,7 @@
 .ef-scene {
   position: relative;
   width: 100%;
-  aspect-ratio: 640 / 230;
+  aspect-ratio: 700 / 230;
   perspective: 900px;
 }
 .ef-layer {
@@ -590,23 +609,24 @@
     opacity: 0.26;
   }
 
-  /* …then restore the active node and the step that leads INTO it.
-     Steps sit between nodes, so node N pairs with step N-1; node 0 is the
-     entry point and has no incoming step. */
+  /* …then restore the active node and its own step. Each step sits directly
+     under the node that performs it, so node N pairs with step N. */
   .ef-scene:has(.ef-hot-0:hover) .ef-node-0,
+  .ef-scene:has(.ef-hot-0:hover) .ef-step-0,
   .ef-scene:has(.ef-hot-0:focus-visible) .ef-node-0,
+  .ef-scene:has(.ef-hot-0:focus-visible) .ef-step-0,
   .ef-scene:has(.ef-hot-1:hover) .ef-node-1,
-  .ef-scene:has(.ef-hot-1:hover) .ef-step-0,
+  .ef-scene:has(.ef-hot-1:hover) .ef-step-1,
   .ef-scene:has(.ef-hot-1:focus-visible) .ef-node-1,
-  .ef-scene:has(.ef-hot-1:focus-visible) .ef-step-0,
+  .ef-scene:has(.ef-hot-1:focus-visible) .ef-step-1,
   .ef-scene:has(.ef-hot-2:hover) .ef-node-2,
-  .ef-scene:has(.ef-hot-2:hover) .ef-step-1,
+  .ef-scene:has(.ef-hot-2:hover) .ef-step-2,
   .ef-scene:has(.ef-hot-2:focus-visible) .ef-node-2,
-  .ef-scene:has(.ef-hot-2:focus-visible) .ef-step-1,
+  .ef-scene:has(.ef-hot-2:focus-visible) .ef-step-2,
   .ef-scene:has(.ef-hot-3:hover) .ef-node-3,
-  .ef-scene:has(.ef-hot-3:hover) .ef-step-2,
+  .ef-scene:has(.ef-hot-3:hover) .ef-step-3,
   .ef-scene:has(.ef-hot-3:focus-visible) .ef-node-3,
-  .ef-scene:has(.ef-hot-3:focus-visible) .ef-step-2 {
+  .ef-scene:has(.ef-hot-3:focus-visible) .ef-step-3 {
     opacity: 1;
   }
 }

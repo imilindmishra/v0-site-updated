@@ -123,7 +123,7 @@ export default function DiabetesPage() {
                 <DiabetesStats />
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
-                Targets based on pilot-study projections over six months.
+                Projected targets over six months.
               </p>
             </Reveal>
 

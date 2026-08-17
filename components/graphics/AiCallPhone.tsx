@@ -84,7 +84,7 @@ export function AiCallPhone({ className }: { className?: string }) {
                 </div>
 
                 <div className="ph-content">
-                  <p className="ph-timer">03:51</p>
+                  <p className="ph-timer">01:04</p>
                   <p className="ph-caller">Omni AI</p>
 
                   <div className="ph-avatar" aria-hidden>

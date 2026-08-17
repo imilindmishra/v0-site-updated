@@ -198,7 +198,7 @@ export function GapChart({ baseline, value, total = 100, baselineLabel, avoidedL
           )}
           <p className="mt-2 text-base font-medium text-foreground">Fewer emergency admissions</p>
           <p className="text-sm text-muted-foreground">per {total} patients</p>
-          <p className="mt-4 border-t border-border pt-3 text-xs text-muted-foreground">Projected from pilot study.</p>
+          <p className="mt-4 border-t border-border pt-3 text-xs text-muted-foreground">Projected.</p>
         </div>
       </div>
     </div>

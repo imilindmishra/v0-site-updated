@@ -46,7 +46,7 @@ const techSpecs = [
     icon: Shield,
     title: "Security & privacy",
     description:
-      "HIPAA-compliant architecture with end-to-end encryption and SOC 2 Type 2 controls.",
+      "HIPAA-compliant architecture with end-to-end encryption and SOC 2 controls.",
   },
   {
     icon: Calendar,
@@ -69,11 +69,11 @@ const techSpecs = [
 ]
 
 const securityItems = [
-  { title: "HIPAA compliant", detail: "Business Associate Agreement signed with every clinic." },
-  { title: "SOC 2 Type 2", detail: "Annual third-party audits of our security controls." },
+  { title: "HIPAA compliant", detail: "Fully HIPAA-compliant architecture." },
+  { title: "SOC 2", detail: "Third-party audits of our security controls." },
   { title: "AES-256 encryption", detail: "Data encrypted at rest and in transit." },
   { title: "PHI redaction", detail: "Automated redaction before anything is stored." },
-  { title: "US-only data centers", detail: "All data stays in US AWS regions." },
+  { title: "US-only data centers", detail: "All data stays on US-based servers." },
   { title: "Minimal retention", detail: "Voice data kept only as long as clinically needed." },
 ]
 
@@ -108,7 +108,7 @@ export default function HomePage() {
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
                 iClinic AI answers your clinic&apos;s phone 24/7 — booking appointments,
                 handling refills, and triaging by voice — then writes a structured note
-                straight back into your EHR over FHIR.
+                straight back into your EHR.
               </p>
               <div className="mt-8">
                 <BookACall large />
@@ -165,7 +165,7 @@ export default function HomePage() {
             </RevealText>
             <p className="mt-2 text-base leading-relaxed text-muted-foreground md:text-lg">
               Every call is understood, structured, and written back to the patient&apos;s
-              chart over FHIR — no transcribing, no sticky notes, no follow-up data entry.
+              chart — no transcribing, no sticky notes, no follow-up data entry.
             </p>
           </Reveal>
           <Reveal delay={120} className="reveal-3d mx-auto mt-6 max-w-[720px]">

@@ -45,10 +45,10 @@ const teamMembers = [
     image: "/team/mahesh-cartoon.png",
   },
   {
-    name: "Viktor",
-    role: "Webapp Development",
+    name: "Khushi",
+    role: "Business Lead",
     title: "",
-    image: "/team/viktor-cartoon.png",
+    image: "/team/khushi-cartoon.png",
   },
   {
     name: "Dhiren",
@@ -70,13 +70,13 @@ function initials(name: string) {
 const partners = [
   {
     icon: BadgeCheck,
-    name: "Compliancy Group",
+    name: "Vanta",
     detail: "HIPAA compliance program and verification",
   },
   {
     icon: Cloud,
-    name: "AWS",
-    detail: "US-only data centers hosting all infrastructure",
+    name: "OVH Cloud",
+    detail: "US-based data centers hosting all infrastructure",
   },
   {
     icon: Cpu,

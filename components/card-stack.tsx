@@ -46,9 +46,13 @@ export function CardStack({
 
     const measure = () => {
       cards = Array.from(root.querySelectorAll<HTMLElement>("[data-stack-card]"))
+      // Both the root size and --header-height vary by breakpoint, so resolve
+      // rem against the live computed root size rather than a hardcoded 16.
+      const rootPx = parseFloat(getComputedStyle(document.documentElement).fontSize)
       stickyTops = cards.map((_, i) => {
-        const remPx = TOP_BASE_REM * parseFloat(getComputedStyle(document.documentElement).fontSize)
-        const headerPx = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) * 16
+        const remPx = TOP_BASE_REM * rootPx
+        const headerPx =
+          parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) * rootPx
         return headerPx + remPx + i * TOP_STEP_PX
       })
       // A card that is already stuck reports its STUCK offset, not its natural

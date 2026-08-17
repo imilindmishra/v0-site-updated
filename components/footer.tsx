@@ -41,11 +41,11 @@ export function Footer() {
             <div className="mt-6 flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-medium text-foreground">
                 <ShieldCheck className="h-3.5 w-3.5 text-primary" aria-hidden />
-                HIPAA compliant with BAA
+                HIPAA compliant
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-medium text-foreground">
                 <ShieldCheck className="h-3.5 w-3.5 text-primary" aria-hidden />
-                SOC 2 Type 2
+                SOC 2
               </span>
             </div>
           </div>
@@ -97,7 +97,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} iClinic AI. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground">
-            HIPAA-compliant architecture &middot; SOC 2 Type 2 &middot; US-only data centers
+            HIPAA-compliant architecture &middot; SOC 2 &middot; US-only data centers
           </p>
         </div>
       </div>

@@ -61,16 +61,11 @@ export function Header() {
   // whole bar out. Nothing can bleed through an opaque header.
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-card">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <LogoMark className="h-8 w-8 text-accent" />
-          <span className="flex flex-col">
-            <span className="text-lg font-semibold tracking-tight leading-tight text-foreground">
-              iClinic AI
-            </span>
-            <span className="hidden text-[10px] leading-tight text-muted-foreground sm:block">
-              Make your clinic a smart clinic.
-            </span>
+      <div className="mx-auto flex h-[var(--header-height)] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+          <LogoMark className="h-9 w-9 text-accent lg:h-10 lg:w-10" />
+          <span className="text-xl font-semibold tracking-tight text-foreground lg:text-2xl">
+            iClinic AI
           </span>
         </Link>
 
@@ -82,7 +77,7 @@ export function Header() {
               href={link.href}
               aria-current={pathname === link.href ? "page" : undefined}
               className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                "rounded-md px-3 py-2 text-base font-medium transition-colors",
                 pathname === link.href
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground",
@@ -98,7 +93,7 @@ export function Header() {
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-9 items-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Book a Call
           </a>
@@ -129,7 +124,7 @@ export function Header() {
                 onClick={() => setOpen(false)}
                 aria-current={pathname === link.href ? "page" : undefined}
                 className={cn(
-                  "rounded-md px-4 py-3 text-sm font-medium transition-colors",
+                  "rounded-md px-4 py-3 text-base font-medium transition-colors",
                   pathname === link.href
                     ? "bg-muted text-primary"
                     : "text-muted-foreground hover:text-foreground",
@@ -143,7 +138,7 @@ export function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="mt-4 inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              className="mt-4 inline-flex h-12 items-center justify-center rounded-full bg-primary px-5 text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
               Book a Call
             </a>

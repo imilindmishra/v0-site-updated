@@ -30,7 +30,7 @@ import {
  * highlight and the FHIR tick are plain static styles, so they simply show.
  */
 
-const TIMER = "03:51"
+const TIMER = "01:04"
 
 const callControls = [
   { Icon: Volume2, label: "Speaker" },

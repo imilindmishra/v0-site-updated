@@ -199,7 +199,7 @@ export default function HeartFailurePage() {
             <RevealText as="h2" className="mt-3 text-balance text-3xl tracking-tight text-foreground sm:text-4xl">
               Projected Emergency Hospitalizations
             </RevealText>
-            <p className="mt-4 text-sm text-muted-foreground">Based on pilot study projections</p>
+            <p className="mt-4 text-sm text-muted-foreground">Projected</p>
           </Reveal>
           {/* NOT reveal-3d — GapChart is data-encoding (bar fill height). */}
           <Reveal delay={120} className="mx-auto mt-12 max-w-3xl">
