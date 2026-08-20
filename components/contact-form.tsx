@@ -7,37 +7,51 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { BOOKING_URL } from "@/lib/booking"
 
 const CONTACT_EMAIL = "info@imedclinic.ai"
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const data = new FormData(e.currentTarget)
-    const name = String(data.get("name") || "")
-    const clinic = String(data.get("clinic") || "")
-    const email = String(data.get("email") || "")
-    const ehr = String(data.get("ehr") || "")
-    const message = String(data.get("message") || "")
+    const form = e.currentTarget
+    const data = new FormData(form)
+    const body = {
+      name: String(data.get("name") || ""),
+      clinic: String(data.get("clinic") || ""),
+      email: String(data.get("email") || ""),
+      ehr: String(data.get("ehr") || ""),
+      message: String(data.get("message") || ""),
+    }
 
-    const subject = `iClinic AI Demo Request — ${clinic || name}`
-    const body = [
-      `Name: ${name}`,
-      `Clinic / Organization: ${clinic}`,
-      `Email: ${email}`,
-      `EHR in use: ${ehr}`,
-      "",
-      "What we'd like to automate:",
-      message,
-    ].join("\n")
-
-    // ponytail: mailto only — no backend in scope; swap for an API route when one exists
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`
-    setSubmitted(true)
+    setSubmitting(true)
+    setError(null)
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          subject: `iClinic AI Demo Request — ${body.clinic || body.name}`,
+          from_name: body.name,
+          ...body,
+        }),
+      })
+      const result = await res.json()
+      if (!result.success) throw new Error()
+      setSubmitted(true)
+      form.reset()
+      setTimeout(() => {
+        window.location.href = BOOKING_URL
+      }, 700)
+    } catch {
+      setError(`Something went wrong. Please email us directly at ${CONTACT_EMAIL}.`)
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -48,23 +62,11 @@ export function ContactForm() {
         walkthrough of iClinic AI tailored to your workflow.
       </p>
 
-      <div role="status" aria-live="polite">
-        {submitted && (
-          <div className="mt-8 flex items-start gap-3 rounded-xl bg-success-bg p-4">
-            <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-success" />
-            <p className="text-sm text-success leading-relaxed">
-              Thanks! Your email draft should have opened. If it didn&apos;t, email us directly at{" "}
-              <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold underline">
-                {CONTACT_EMAIL}
-              </a>
-              .
-            </p>
-          </div>
-        )}
-      </div>
+      <span role="status" aria-live="polite" className="sr-only">
+        {submitted && "Thanks! We've received your request and will be in touch shortly."}
+      </span>
 
-      {!submitted && (
-        <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+      <form onSubmit={handleSubmit} className="mt-8 space-y-5">
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="name">Your name</Label>
@@ -95,22 +97,36 @@ export function ContactForm() {
               placeholder="Scheduling, refills, after-hours calls, patient follow-ups..."
             />
           </div>
+          {error && <p className="text-sm text-destructive">{error}</p>}
           <Button
             type="submit"
             size="lg"
-            className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+            disabled={submitting}
+            className={`w-full rounded-full transition-colors disabled:opacity-60 ${
+              submitted
+                ? "bg-success text-white hover:bg-success"
+                : "bg-primary text-primary-foreground hover:bg-primary/90"
+            }`}
           >
-            Send Message
-            <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
+            {submitted ? (
+              <>
+                Sent
+                <Check aria-hidden="true" className="ml-2 h-4 w-4" />
+              </>
+            ) : (
+              <>
+                {submitting ? "Sending..." : "Send Message"}
+                <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
+              </>
+            )}
           </Button>
           <p className="text-center text-xs text-muted-foreground">
-            This opens a pre-filled email to our team. Prefer email directly?{" "}
+            Prefer email directly?{" "}
             <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary hover:underline">
               {CONTACT_EMAIL}
             </a>
           </p>
-        </form>
-      )}
+      </form>
     </div>
   )
 }
