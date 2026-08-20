@@ -175,7 +175,7 @@ export function OmniAiHero() {
                             <span className="tp-tick" aria-hidden>
                               <Check strokeWidth={3} />
                             </span>
-                            Synced via FHIR
+                            Synced
                           </span>
                         )}
                       </span>
