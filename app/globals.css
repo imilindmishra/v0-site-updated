@@ -1440,6 +1440,28 @@
   }
 }
 
+/* Contact page Book-a-Call: the button doubles as its own confirmation.
+   React swaps the colour and label; only the 5s drain bar lives here, so
+   reduced-motion users get an instant swap and an instant revert. The bar is
+   created when .is-opening is added and destroyed when it is removed, which is
+   what restarts the animation cleanly on a later click. */
+@media (prefers-reduced-motion: no-preference) {
+  .book-cta.is-opening::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 3px;
+    background: rgb(255 255 255 / 0.6);
+    transform-origin: left;
+    animation: book-drain 5s linear forwards;
+  }
+}
+
+@keyframes book-drain {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }

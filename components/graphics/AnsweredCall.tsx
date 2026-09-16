@@ -115,7 +115,7 @@ export function AnsweredCall({ className }: { className?: string }) {
         </g>
       </svg>
 
-      <button type="button" className="va-hot">Live voice waveform — the agent is speaking</button>
+      <button type="button" className="va-hot">Live voice waveform: the agent is speaking</button>
     </div>
   )
 }

@@ -208,7 +208,7 @@ export default function HeartFailurePage() {
               value={55}
               baselineLabel="without monitoring"
               avoidedLabel="avoided"
-              ariaLabel="Without monitoring, 100 of 100 patients are hospitalized. With iClinic AI, 55 of 100 are hospitalized — 45 admissions avoided."
+              ariaLabel="Without monitoring, 100 of 100 patients are hospitalized. With iClinic AI, 55 of 100 are hospitalized, 45 admissions avoided."
             />
           </Reveal>
         </div>

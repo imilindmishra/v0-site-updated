@@ -82,7 +82,7 @@ export default function DementiaPage() {
             </GraphicScroller>
             <p className="mt-4 text-center text-sm text-muted-foreground">
               A warm scheduled call delivers the medication reminder, and the
-              family caregiver is notified — gently, every day.
+              family caregiver is notified gently, every day.
             </p>
           </Reveal>
 

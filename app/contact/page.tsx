@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Mail, MapPin, Phone } from "lucide-react"
-import { ContactForm } from "@/components/contact-form"
+import { BookACallCard } from "@/components/book-a-call-card"
 import { Reveal } from "@/components/reveal"
 import { RevealText } from "@/components/reveal-text"
 
@@ -80,9 +80,9 @@ export default function ContactPage() {
             </ul>
           </Reveal>
 
-          {/* Contact form */}
+          {/* Book a call */}
           <Reveal delay={80}>
-            <ContactForm />
+            <BookACallCard />
           </Reveal>
         </div>
       </section>

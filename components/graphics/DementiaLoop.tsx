@@ -108,9 +108,9 @@ export function DementiaLoop({ className }: { className?: string }) {
       </svg>
 
       {/* ---- hotspots: hover on pointer, focus on tap/keyboard ---- */}
-      <button type="button" className="dm-hot dm-hot-1">Warm daily call — adaptive, patient tone</button>
-      <button type="button" className="dm-hot dm-hot-2">Medication reminder — confirmed and logged</button>
-      <button type="button" className="dm-hot dm-hot-3">Family notified — caregiver in the loop</button>
+      <button type="button" className="dm-hot dm-hot-1">Warm daily call: adaptive, patient tone</button>
+      <button type="button" className="dm-hot dm-hot-2">Medication reminder: confirmed and logged</button>
+      <button type="button" className="dm-hot dm-hot-3">Family notified: caregiver in the loop</button>
     </div>
   )
 }

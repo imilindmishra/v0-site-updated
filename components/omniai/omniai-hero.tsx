@@ -100,7 +100,7 @@ export function OmniAiHero() {
       ref={sceneRef}
       className="tp-scene"
       role="img"
-      aria-label="Two phones crossing: on the left, the Omni AI front-desk agent live on a call with a voice waveform running. On the right, the patient's chart, where the top entry — appointment rescheduled to Thursday 2:00 PM — has just been written by that call and synced via FHIR."
+      aria-label="Two phones crossing: on the left, the Omni AI front-desk agent live on a call with a voice waveform running. On the right, the patient's chart, where the top entry (appointment rescheduled to Thursday 2:00 PM) has just been written by that call and synced via FHIR."
     >
       {/* ---- BACK LEFT: the call in progress (AiCallPhone's screen, reused) ---- */}
       <div className="tp-phone tp-left">

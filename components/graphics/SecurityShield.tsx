@@ -65,7 +65,7 @@ export function SecurityShield({ className }: { className?: string }) {
         </g>
       ))}
       <text x="280" y="278" textAnchor="middle" fontSize="12" fill="var(--primary-foreground)" fillOpacity="0.55">
-        AES-256 in transit and at rest · PHI redacted before storage
+        AES-256 in transit and at rest · US-based data centers
       </text>
     </svg>
   )

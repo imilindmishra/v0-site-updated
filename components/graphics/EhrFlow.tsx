@@ -106,7 +106,7 @@ export function EhrFlow({ className }: { className?: string }) {
           className={`ef-hot ef-hot-${i}`}
           style={{ left: `${(n.x / 700) * 100}%`, width: `${(150 / 700) * 100}%` }}
         >
-          {n.label} — {n.sub}
+          {n.label}: {n.sub}
         </button>
       ))}
     </div>

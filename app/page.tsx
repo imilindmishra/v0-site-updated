@@ -38,9 +38,9 @@ const techSpecs = [
   },
   {
     icon: FileText,
-    title: "EHR integration",
+    title: "Works with your EHR",
     description:
-      "Built to integrate with major EHR systems via FHIR and HL7 interoperability standards.",
+      "Connects to the system your clinic already runs, so outcomes land where your team already looks.",
   },
   {
     icon: Shield,
@@ -52,7 +52,7 @@ const techSpecs = [
     icon: Calendar,
     title: "Smart scheduling",
     description:
-      "Appointments booked, rescheduled, and confirmed by voice, with automated reminders designed to reduce no-shows.",
+      "Appointments booked and rescheduled by voice, then a confirmation SMS, and an email when the patient needs the details in writing.",
   },
   {
     icon: Stethoscope,
@@ -64,7 +64,7 @@ const techSpecs = [
     icon: Clock,
     title: "Always available",
     description:
-      "An always-on voice agent that answers day or night, and never calls in sick.",
+      "Answers day or night, weekends and holidays included, and never calls in sick.",
   },
 ]
 
@@ -72,7 +72,7 @@ const securityItems = [
   { title: "HIPAA compliant", detail: "Fully HIPAA-compliant architecture." },
   { title: "SOC 2", detail: "Third-party audits of our security controls." },
   { title: "AES-256 encryption", detail: "Data encrypted at rest and in transit." },
-  { title: "PHI redaction", detail: "Automated redaction before anything is stored." },
+  { title: "BAA available", detail: "PHI governed by a Business Associate Agreement with your clinic." },
   { title: "US-only data centers", detail: "All data stays on US-based servers." },
   { title: "Minimal retention", detail: "Voice data kept only as long as clinically needed." },
 ]
@@ -106,9 +106,9 @@ export default function HomePage() {
                 Every patient call answered. Every call written to the EHR.
               </RevealText>
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
-                iClinic AI answers your clinic&apos;s phone 24/7 — booking appointments,
-                handling refills, and triaging by voice — then writes a structured note
-                straight back into your EHR.
+                iClinic AI is an always-on front desk for your clinic, handling scheduling,
+                refills, triage, and follow-up across voice, text, and email. No patient goes
+                unanswered.
               </p>
               <div className="mt-8">
                 <BookACall large />
@@ -165,7 +165,7 @@ export default function HomePage() {
             </RevealText>
             <p className="mt-2 text-base leading-relaxed text-muted-foreground md:text-lg">
               Every call is understood, structured, and written back to the patient&apos;s
-              chart — no transcribing, no sticky notes, no follow-up data entry.
+              chart. No transcribing, no sticky notes, no follow-up data entry.
             </p>
           </Reveal>
           <Reveal delay={120} className="reveal-3d mx-auto mt-6 max-w-[720px]">
@@ -185,7 +185,7 @@ export default function HomePage() {
               Real numbers from an early deployment
             </RevealText>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Measured during an early deployment — not projections. Every other figure on
+              Measured during an early deployment, not projections. Every other figure on
               this site is a target.
             </p>
           </Reveal>
@@ -214,6 +214,18 @@ export default function HomePage() {
             </Reveal>
           ))}
         </div>
+        {/* Price anchor — the comparison the buyer is actually running. */}
+        <Reveal delay={240} className="mx-auto mt-4 max-w-4xl">
+          <div className="rounded-2xl border border-border bg-card p-6 text-center hover-lift">
+            <p className="text-3xl font-semibold tracking-tight text-primary">
+              About 1/10 the cost of a front-desk hire
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              One agent, answering every call day and night, for roughly a tenth of what
+              a single front-desk salary costs you.
+            </p>
+          </div>
+        </Reveal>
       </section>
 
       {/* Tech grid */}

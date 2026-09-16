@@ -32,7 +32,7 @@ const scenarios = [
     icon: CalendarClock,
     title: "Scheduling & Refills",
     description:
-      "Patients can book, reschedule, or cancel appointments and request prescription refills through natural conversation, written straight into your EHR.",
+      "Patients can book, reschedule, or cancel appointments and request prescription refills through natural conversation, written straight into your EHR and confirmed by SMS.",
   },
   {
     icon: PhoneForwarded,
@@ -52,6 +52,7 @@ const transcriptPoints = [
   "Natural, human-like conversations with spell-back confirmation",
   "Full transcript and audio playback for every call",
   "Summaries and outcomes linked to the patient and doctor",
+  "Confirmation sent by SMS, or by email when the patient needs it in writing",
 ]
 
 export default function OmniAIPage() {
@@ -70,8 +71,9 @@ export default function OmniAIPage() {
             </RevealText>
             <p className="mt-6 text-lg leading-relaxed text-card/70">
               OmniAI is the AI voice agent that manages your clinic&apos;s entire phone line. It
-              answers, schedules, triages, and documents every call directly in your EHR, so your
-              front desk can focus on the patients in the room.
+              answers, schedules, triages, and documents every call directly in your EHR, then
+              texts the patient a confirmation and emails the details when they need them in
+              writing, so your front desk can focus on the patients in the room.
             </p>
             <div className="mt-8 flex flex-col items-center gap-4">
               <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" className={ctaClass}>
@@ -97,7 +99,7 @@ export default function OmniAIPage() {
               Real Numbers, Not Projections
             </RevealText>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-              Measured during an early deployment — actual usage, not projections.
+              Measured during an early deployment: actual usage, not projections.
             </p>
           </Reveal>
           <Reveal delay={120} className="mt-12">
@@ -187,7 +189,7 @@ export default function OmniAIPage() {
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
                 Many patients who reach voicemail never call back. OmniAI ensures every call is
                 answered and resolved, helping recover lost revenue and reducing the burnout that
-                drives staff turnover.
+                drives staff turnover, at about a tenth of the cost of a front-desk hire.
               </p>
               <div className="hover-lift-3d mt-8 flex items-start gap-4 rounded-2xl border border-border bg-card p-6">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
@@ -250,7 +252,8 @@ export default function OmniAIPage() {
           "Take prescription refill requests and route them for approval",
           "Triage symptoms and escalate urgent calls to the right staff",
           "Automatically write call notes and outcomes back to your EHR",
-          "Send appointment confirmations and reminders to cut no-shows",
+          "Text a confirmation SMS after every call, and email the details when needed",
+          "Send appointment reminders to cut no-shows",
           "Review a live dashboard of every call and its resolution",
           "Answer common questions about hours, location, and insurance",
         ]}
