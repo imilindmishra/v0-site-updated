@@ -3,9 +3,9 @@
 import { useCountUp } from "@/hooks/use-motion"
 
 const stats = [
-  { value: 125, decimals: 0, suffix: "", label: "Calls handled" },
-  { value: 1.83, decimals: 2, suffix: " min", label: "Average time per call" },
-  { value: 228.9, decimals: 1, suffix: " min", label: "Staff minutes saved" },
+  { value: 100, decimals: 0, suffix: "%", label: "Answering rate" },
+  { value: 2, decimals: 0, suffix: " min 16 s", label: "Average time per call" },
+  { value: 660, decimals: 0, suffix: "+ min", label: "Staff minutes saved" },
 ] as const
 
 function Stat({
