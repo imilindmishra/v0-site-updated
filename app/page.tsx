@@ -46,7 +46,7 @@ const techSpecs = [
     icon: Shield,
     title: "Security & privacy",
     description:
-      "HIPAA-compliant architecture with end-to-end encryption and SOC 2 controls.",
+      "HIPAA-compliant architecture with end-to-end encryption. SOC 2 in progress.",
   },
   {
     icon: Calendar,
@@ -70,7 +70,7 @@ const techSpecs = [
 
 const securityItems = [
   { title: "HIPAA compliant", detail: "Fully HIPAA-compliant architecture." },
-  { title: "SOC 2", detail: "Third-party audits of our security controls." },
+  { title: "SOC 2 in progress", detail: "Third-party audit of our security controls is underway." },
   { title: "AES-256 encryption", detail: "Data encrypted at rest and in transit." },
   { title: "BAA available", detail: "PHI governed by a Business Associate Agreement with your clinic." },
   { title: "US-only data centers", detail: "All data stays on US-based servers." },

@@ -46,7 +46,7 @@ export function Footer() {
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-medium text-foreground">
                 <ShieldCheck className="h-3.5 w-3.5 text-primary" aria-hidden />
-                SOC 2
+                SOC 2 in progress
               </span>
             </div>
           </div>
@@ -98,7 +98,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} iClinic AI. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground">
-            HIPAA-compliant architecture &middot; SOC 2 &middot; US-only data centers
+            HIPAA-compliant architecture &middot; SOC 2 in progress &middot; US-only data centers
           </p>
         </div>
       </div>

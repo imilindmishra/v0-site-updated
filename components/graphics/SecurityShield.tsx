@@ -15,7 +15,7 @@ export function SecurityShield({ className }: { className?: string }) {
     <svg
       viewBox="0 0 560 300"
       role="img"
-      aria-label="A shield protecting encrypted patient data as it flows through HIPAA, FHIR, and SOC 2 compliance checkpoints."
+      aria-label="A shield protecting encrypted patient data as it flows through HIPAA, FHIR, and SOC 2 (in progress) compliance checkpoints."
       className={className}
       fill="none"
     >
@@ -65,7 +65,7 @@ export function SecurityShield({ className }: { className?: string }) {
         </g>
       ))}
       <text x="280" y="278" textAnchor="middle" fontSize="12" fill="var(--primary-foreground)" fillOpacity="0.55">
-        AES-256 in transit and at rest · US-based data centers
+        AES-256 in transit and at rest · US-based data centers · SOC 2 in progress
       </text>
     </svg>
   )
