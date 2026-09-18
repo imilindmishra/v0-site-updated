@@ -1,0 +1,23 @@
+# AWS CodeBuild: build the static export and publish it to S3 + CloudFront.
+# BUCKET_NAME and DISTRIBUTION_ID are set on the CodeBuild project by infra/static-site.yaml.
+version: 0.2
+
+env:
+  secrets-manager:
+    NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: iclinic/website/env:NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+    NEXT_PUBLIC_WHISTLEBLOWER_WEB3FORMS_KEY: iclinic/website/env:NEXT_PUBLIC_WHISTLEBLOWER_WEB3FORMS_KEY
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+    commands:
+      - npm install -g pnpm@11
+      - pnpm install --frozen-lockfile
+  build:
+    commands:
+      - pnpm build
+  post_build:
+    commands:
+      - aws s3 sync out/ "s3://$BUCKET_NAME" --delete
+      - aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"
