@@ -91,6 +91,9 @@ Resources:
         Aliases:
           - !Ref DomainName
           - !Sub "www.${DomainName}"
+          # Legacy subdomain: omniai.<domain> is a CNAME to www.<domain>, so requests
+          # arrive here with that Host header and need to be an accepted alias.
+          - !Sub "omniai.${DomainName}"
         DefaultRootObject: index.html
         HttpVersion: http2and3
         IPV6Enabled: true
