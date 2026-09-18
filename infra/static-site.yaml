@@ -10,9 +10,12 @@ Parameters:
   DomainName:
     Type: String
     Default: imedclinic.ai
-  HostedZoneId:
-    Type: AWS::Route53::HostedZone::Id
-    Description: Public hosted zone for DomainName (used only for certificate validation records).
+  CertificateArn:
+    Type: String
+    Description: >-
+      ACM certificate ARN in us-east-1 covering DomainName and *.DomainName. Created
+      out-of-band: while www still CNAMEs to another provider, CAA lookups for a www SAN
+      follow that CNAME and can block issuance, so a wildcard validated at the apex is used.
   GitHubRepoUrl:
     Type: String
     Default: https://github.com/iClinicAI/v0-ic-linic-ai-website.git
@@ -49,19 +52,6 @@ Resources:
         OriginAccessControlOriginType: s3
         SigningBehavior: always
         SigningProtocol: sigv4
-
-  Certificate:
-    Type: AWS::CertificateManager::Certificate
-    Properties:
-      DomainName: !Ref DomainName
-      SubjectAlternativeNames:
-        - !Sub "www.${DomainName}"
-      ValidationMethod: DNS
-      DomainValidationOptions:
-        - DomainName: !Ref DomainName
-          HostedZoneId: !Ref HostedZoneId
-        - DomainName: !Sub "www.${DomainName}"
-          HostedZoneId: !Ref HostedZoneId
 
   IndexRewriteFunction:
     Type: AWS::CloudFront::Function
@@ -106,7 +96,7 @@ Resources:
         IPV6Enabled: true
         PriceClass: PriceClass_100
         ViewerCertificate:
-          AcmCertificateArn: !Ref Certificate
+          AcmCertificateArn: !Ref CertificateArn
           SslSupportMethod: sni-only
           MinimumProtocolVersion: TLSv1.2_2021
         Origins:
