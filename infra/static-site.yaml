@@ -69,7 +69,7 @@ Resources:
       Name: !Sub "${AWS::StackName}-index-rewrite"
       AutoPublish: true
       FunctionConfig:
-        Comment: Serve index.html for directory URLs (Next.js static export with trailingSlash)
+        Comment: Next.js static export with trailingSlash - serve index.html for directory URLs, redirect /path to /path/
         Runtime: cloudfront-js-2.0
       FunctionCode: |
         function handler(event) {
@@ -77,8 +77,17 @@ Resources:
           var uri = request.uri;
           if (uri.endsWith('/')) {
             request.uri = uri + 'index.html';
-          } else if (!uri.split('/').pop().includes('.')) {
-            request.uri = uri + '/index.html';
+            return request;
+          }
+          if (!uri.split('/').pop().includes('.')) {
+            var qs = Object.keys(request.querystring).map(function (k) {
+              return k + (request.querystring[k].value ? '=' + request.querystring[k].value : '');
+            }).join('&');
+            return {
+              statusCode: 301,
+              statusDescription: 'Moved Permanently',
+              headers: { location: { value: uri + '/' + (qs ? '?' + qs : '') } },
+            };
           }
           return request;
         }
@@ -196,6 +205,7 @@ Resources:
       Name: !Ref AWS::StackName
       Description: !Sub "Build ${DomainName} static export and publish to S3/CloudFront"
       ServiceRole: !GetAtt BuildRole.Arn
+      ConcurrentBuildLimit: 1
       Artifacts:
         Type: NO_ARTIFACTS
       Environment:
@@ -211,6 +221,7 @@ Resources:
         Type: GITHUB
         Location: !Ref GitHubRepoUrl
         BuildSpec: buildspec.yml
+        GitCloneDepth: 1
         Auth:
           Type: CODECONNECTIONS
           Resource: !Ref ConnectionArn
