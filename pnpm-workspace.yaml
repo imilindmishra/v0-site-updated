@@ -1,4 +1,6 @@
+# sharp is unused: next.config sets images.unoptimized and the site is a static export.
+# unrs-resolver ships prebuilt binaries, so its build script is not needed either.
 allowBuilds:
-  sharp: set this to true or false
-  unrs-resolver: set this to true or false
+  sharp: false
+  unrs-resolver: false
 verifyDepsBeforeRun: false
